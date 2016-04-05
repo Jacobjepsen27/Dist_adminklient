@@ -49,6 +49,9 @@ public class TableController implements Initializable{
 	    @FXML
 	    private TableColumn<Spot, Boolean> wcCol;
 	    
+	    @FXML
+	    private TableColumn<Spot, Boolean> delCol;
+	    
 	    final ObservableList<Spot> data = FXCollections.observableArrayList(
 				new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false),
 				new Spot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false),
@@ -60,6 +63,7 @@ public class TableController implements Initializable{
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
 			// TODO Auto-generated method stub
+			
 			
 			tableViewId.setEditable(true);
 			
@@ -74,6 +78,7 @@ public class TableController implements Initializable{
 			latCol.setCellValueFactory(new PropertyValueFactory<Spot,Float>("latitude"));
 			nameCol.setCellValueFactory(new PropertyValueFactory<Spot,String>("name"));
 			updCol.setCellValueFactory(new PropertyValueFactory<Spot,Long>("lastUpdated"));
+			delCol.setCellValueFactory(new PropertyValueFactory<Spot,Boolean>("deleted"));
 			
 			tableViewId.setItems(data);
 			

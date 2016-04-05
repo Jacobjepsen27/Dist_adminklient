@@ -18,8 +18,9 @@
             <TableColumn fx:id="roadtrainCol" prefWidth="87.0855712890625" text="roadtrain" />
             <TableColumn fx:id="longCol" prefWidth="92.7044677734375" text="longitude" />
             <TableColumn fx:id="latCol" prefWidth="93.5567626953125" text="latitude" />
-            <TableColumn fx:id="nameCol" prefWidth="96.08990478515625" text="name" />
-            <TableColumn fx:id="updCol" prefWidth="75.0" text="lastUpdated" />
+            <TableColumn fx:id="nameCol" prefWidth="63.0" text="name" />
+            <TableColumn fx:id="updCol" prefWidth="44.0" text="lastUpdated" />
+            <TableColumn fx:id="delCol" prefWidth="75.0" text="deleted" />
         </columns>
       </TableView>
    </children>
