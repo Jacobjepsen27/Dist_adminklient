@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 
 public class Spot {
 	
@@ -34,8 +35,12 @@ public class Spot {
 		return id.get();
 	}
 	
-	public boolean getAddBlue(){
-		return addBlue.get();
+//	public boolean getAddBlue(){
+//		return addBlue.get();
+//	}
+	
+	public ObservableValue<Boolean> getAddBlue(){
+		return addBlue;
 	}
 	
 	public void setAddBlue(boolean b){
