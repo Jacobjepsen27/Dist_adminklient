@@ -124,6 +124,8 @@ public class SampleController {
 		Stage stage = new Stage();
 		FXMLLoader myLoader = new FXMLLoader(getClass().getResource("Spots2.fxml"));
 		AnchorPane myPane = (AnchorPane)myLoader.load();
+		TableController controller = (TableController) myLoader.getController();
+		controller.setCurrentStage(stage);
 		Scene scene = new Scene(myPane,1000,700);
 		currentStage.close();
 		setCurrentStage(stage);

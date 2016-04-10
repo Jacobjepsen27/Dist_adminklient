@@ -23,5 +23,6 @@
             <TableColumn fx:id="delCol" prefWidth="75.0" text="deleted" />
         </columns>
       </TableView>
+      <Button fx:id="addSpot_btn" layoutX="314.0" layoutY="640.0" mnemonicParsing="false" onAction="#addSpotAction" text="Button" />
    </children>
 </AnchorPane>

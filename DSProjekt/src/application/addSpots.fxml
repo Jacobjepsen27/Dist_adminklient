@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="538.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddController">
+   <children>
+      <Button fx:id="back_btn" layoutX="254.0" layoutY="323.0" mnemonicParsing="false" onAction="#backAction" text="Tilbage" />
+      <Label fx:id="testLabel" layoutX="269.0" layoutY="54.0" text="Label" />
+   </children>
+</AnchorPane>

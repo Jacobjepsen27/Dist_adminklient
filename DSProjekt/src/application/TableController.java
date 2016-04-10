@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -11,7 +12,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -21,10 +24,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
 
 public class TableController implements Initializable{
+	
+	@FXML
+	private Button addSpot_btn;
 
 	@FXML
 	private TableColumn<Spot,Integer> idCol;
@@ -64,6 +72,8 @@ public class TableController implements Initializable{
 
 	@FXML
 	private TableColumn<Spot, Boolean> delCol;
+	
+	private Stage currentStage;
 
 	final ObservableList<Spot> data = FXCollections.observableArrayList(
 			new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false),
@@ -225,6 +235,25 @@ public class TableController implements Initializable{
 		tableViewId.setItems(data);
 
 	}
+	
+	@FXML
+	private void addSpotAction(ActionEvent event) throws IOException{
+		Stage stage = new Stage();
+		FXMLLoader myLoader = new FXMLLoader(getClass().getResource("addSpots.fxml"));
+		AnchorPane myPane = (AnchorPane)myLoader.load();
+		AddController controller = (AddController) myLoader.getController();
+		controller.setCurrentStage(stage);
+		Scene scene = new Scene(myPane,600,400);
+		currentStage.close();
+		setCurrentStage(stage);
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	//Gemmer den nuværende scene
+		public void setCurrentStage(Stage stage){
+			this.currentStage = stage;
+		}
 
 }
 
