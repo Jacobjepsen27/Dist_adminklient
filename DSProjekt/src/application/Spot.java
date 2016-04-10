@@ -31,6 +31,21 @@ public class Spot {
         this.deleted = new SimpleBooleanProperty(deleted);
 	}
 	
+//	public Spot(int id, boolean addBlue, boolean food, boolean wc, boolean bed, boolean bath, boolean roadtrain, float longitude, float latitude, String name, long lastUpdated, boolean deleted){
+//		this.id = new SimpleIntegerProperty(id);
+//        this.addBlue = new SimpleBooleanProperty(addBlue);
+//        this.food = new SimpleBooleanProperty(food);
+//        this.wc = new SimpleBooleanProperty(wc);
+//        this.bed = new SimpleBooleanProperty(bed);
+//        this.bath = new SimpleBooleanProperty(bath);
+//        this.roadtrain = new SimpleBooleanProperty(roadtrain);
+//        this.longitude = new SimpleFloatProperty(longitude);
+//        this.latitude = new SimpleFloatProperty(latitude);
+//        this.name = new SimpleStringProperty(name);
+//        this.lastUpdated = new SimpleLongProperty(lastUpdated);
+
+//	}
+	
 	public int getId(){
 		return id.get();
 	}
@@ -47,40 +62,40 @@ public class Spot {
 		addBlue.set(b);
 	}
 	
-	public boolean getFood(){
-		return food.get();
+	public ObservableValue<Boolean> getFood(){
+		return food;
 	}
 	
 	public void setFood(boolean b){
 		food.set(b);
 	}
 	
-	public boolean getWc(){
-		return wc.get();
+	public ObservableValue<Boolean> getWc(){
+		return wc;
 	}
 	
 	public void setWc(boolean b){
 		wc.set(b);
 	}
 	
-	public boolean getBed(){
-		return bed.get();
+	public ObservableValue<Boolean> getBed(){
+		return bed;
 	}
 	
 	public void setBed(boolean b){
 		bed.set(b);
 	}
 	
-	public boolean getBath(){
-		return bath.get();
+	public ObservableValue<Boolean> getBath(){
+		return bath;
 	}
 	
 	public void setBath(boolean b){
 		bath.set(b);
 	}
 	
-	public boolean getRoadtrain(){
-		return roadtrain.get();
+	public ObservableValue<Boolean> getRoadtrain(){
+		return roadtrain;
 	}
 	
 	public void setRoadtrain(boolean b){
@@ -119,8 +134,8 @@ public class Spot {
 		lastUpdated.set(n);
 	}
 	
-	public boolean getDeleted(){
-		return deleted.get();
+	public ObservableValue<Boolean> getDeleted(){
+		return deleted;
 	}
 	
 	public void setDeleted(boolean b){
