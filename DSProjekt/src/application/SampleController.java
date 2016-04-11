@@ -89,7 +89,7 @@ public class SampleController {
 //			currentStage.close();
 //			Tableview tv = new Tableview();
 //			tv.start(new Stage());
-			
+			loadTestSpots();
 			createTableView();
 		}
 	}
@@ -111,13 +111,23 @@ public class SampleController {
 	}
 
 	public void loadTestSpots(){
-//		final ObservableList<Spot> data = FXCollections.observableArrayList(
-//				new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694),
-//				new Spot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694),
-//				new Spot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694),
-//				new Spot(4, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694),
-//				new Spot(5, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694)
-//			);
+		//her modtages json og laves om til en arraylist. skal nok kaldes gennem connection klassen
+		
+		//testdata:
+//		testSpots.add(new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 6", 240694, false));
+//		testSpots.add(new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false));
+//		testSpots.add(new Spot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false));
+//		testSpots.add(new Spot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false));
+//		testSpots.add(new Spot(4, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694, false));
+//		testSpots.add(new Spot(5, false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694, false));
+		
+		testSpots.add(new Spot(true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 6", 240694, false));
+		testSpots.add(new Spot(true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false));
+		testSpots.add(new Spot( true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false));
+		testSpots.add(new Spot( true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false));
+		testSpots.add(new Spot( true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694, false));
+		testSpots.add(new Spot( false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694, false));
+		
 	}
 
 	public void createTableView() throws IOException{
@@ -126,7 +136,8 @@ public class SampleController {
 		AnchorPane myPane = (AnchorPane)myLoader.load();
 		TableController controller = (TableController) myLoader.getController();
 		controller.setCurrentStage(stage);
-		Scene scene = new Scene(myPane,1000,700);
+		controller.setObservableData(testSpots);
+		Scene scene = new Scene(myPane,1100,800);
 		currentStage.close();
 		setCurrentStage(stage);
 		stage.setScene(scene);

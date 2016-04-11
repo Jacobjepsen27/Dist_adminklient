@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.sun.prism.impl.Disposer.Record;
@@ -104,13 +105,13 @@ public class TableController implements Initializable{
 	
 	private Stage currentStage;
 
-	final ObservableList<Spot> data = FXCollections.observableArrayList(
-			new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false),
-			new Spot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false),
-			new Spot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false),
-			new Spot(4, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694, false),
-			new Spot(5, false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694, false)
-			);
+	public ObservableList<Spot> data = FXCollections.observableArrayList();
+//			new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false),
+//			new Spot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false),
+//			new Spot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false),
+//			new Spot(4, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694, false),
+//			new Spot(5, false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694, false)
+//			);
 
 	//	    final ObservableList<Spot> data = FXCollections.observableArrayList(
 	//				new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694),
@@ -127,8 +128,8 @@ public class TableController implements Initializable{
 		tableViewId.setEditable(true);
 
 
-		idCol.setPrefWidth(25);
-		idCol.setCellValueFactory(new PropertyValueFactory<Spot,Integer>("id"));
+//		idCol.setPrefWidth(25);
+//		idCol.setCellValueFactory(new PropertyValueFactory<Spot,Integer>("id"));
 
 		addBlueCol.setPrefWidth(70);
 		addBlueCol.setCellValueFactory(
@@ -262,12 +263,17 @@ public class TableController implements Initializable{
 				});
 
 		tableViewId.setItems(data);
-
 	}
 	
 	@FXML
 	private void addSpotAction(ActionEvent event) throws IOException{	
-		
+		data.add(new Spot(addBlueCheck.isSelected(), foodCheck.isSelected(), wcCheck.isSelected(), bedCheck.isSelected(), bathCheck.isSelected(), roadtrainCheck.isSelected(), Float.parseFloat(long_text.getText()), Float.parseFloat(lat_text.getText()), name_text.getText(), System.currentTimeMillis(), false));
+	}
+	
+	public void setObservableData(ArrayList<Spot> list){
+		for(int i=0; i<list.size(); i++){
+			data.add(list.get(i));
+		}
 	}
 	
 	//Gemmer den nuværende scene

@@ -13,11 +13,25 @@ public class Spot {
 	private final SimpleBooleanProperty addBlue, food, wc, bed, bath, roadtrain, deleted;
     private final SimpleFloatProperty longitude, latitude;
     private final SimpleStringProperty name;
-    private final SimpleLongProperty lastUpdated;
-    private final SimpleIntegerProperty id;
+    private SimpleLongProperty lastUpdated;
+//    private  SimpleIntegerProperty id;
 	
-	public Spot(int id, boolean addBlue, boolean food, boolean wc, boolean bed, boolean bath, boolean roadtrain, float longitude, float latitude, String name, long lastUpdated, boolean deleted){
-		this.id = new SimpleIntegerProperty(id);
+//	public Spot(int id, boolean addBlue, boolean food, boolean wc, boolean bed, boolean bath, boolean roadtrain, float longitude, float latitude, String name, long lastUpdated, boolean deleted){
+//		this.id = new SimpleIntegerProperty(id);
+//        this.addBlue = new SimpleBooleanProperty(addBlue);
+//        this.food = new SimpleBooleanProperty(food);
+//        this.wc = new SimpleBooleanProperty(wc);
+//        this.bed = new SimpleBooleanProperty(bed);
+//        this.bath = new SimpleBooleanProperty(bath);
+//        this.roadtrain = new SimpleBooleanProperty(roadtrain);
+//        this.longitude = new SimpleFloatProperty(longitude);
+//        this.latitude = new SimpleFloatProperty(latitude);
+//        this.name = new SimpleStringProperty(name);
+//        this.lastUpdated = new SimpleLongProperty(lastUpdated);
+//        this.deleted = new SimpleBooleanProperty(deleted);
+//	}
+	
+	public Spot(boolean addBlue, boolean food, boolean wc, boolean bed, boolean bath, boolean roadtrain, float longitude, float latitude, String name, long lastUpdated, boolean deleted){
         this.addBlue = new SimpleBooleanProperty(addBlue);
         this.food = new SimpleBooleanProperty(food);
         this.wc = new SimpleBooleanProperty(wc);
@@ -45,11 +59,11 @@ public class Spot {
 //        this.lastUpdated = new SimpleLongProperty(lastUpdated);
 
 //	}
-	
-	public int getId(){
-		return id.get();
-	}
-	
+//	
+//	public int getId(){
+//		return id.get();
+//	}
+//	
 //	public boolean getAddBlue(){
 //		return addBlue.get();
 //	}
