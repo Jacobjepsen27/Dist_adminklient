@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="883.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TableController">
    <children>
-      <TableView fx:id="tableViewId" layoutX="32.0" layoutY="32.0" prefHeight="543.0" prefWidth="919.0">
+      <TableView fx:id="tableViewId" layoutX="32.0" layoutY="32.0" prefHeight="435.0" prefWidth="919.0">
         <columns>
           <TableColumn fx:id="idCol" prefWidth="52.57598876953125" text="id" />
           <TableColumn fx:id="addBlueCol" prefWidth="82.17133331298828" text="addblue" />
@@ -23,6 +23,24 @@
             <TableColumn fx:id="delCol" prefWidth="75.0" text="deleted" />
         </columns>
       </TableView>
-      <Button fx:id="addSpot_btn" layoutX="314.0" layoutY="640.0" mnemonicParsing="false" onAction="#addSpotAction" text="Button" />
+      <Button fx:id="addSpot_btn" layoutX="131.0" layoutY="769.0" mnemonicParsing="false" onAction="#addSpotAction" prefHeight="27.0" prefWidth="167.0" text="Tilføj Spot" />
+      <Label layoutX="45.0" layoutY="524.0" text="Add Blue:" />
+      <Label layoutX="75.0" layoutY="551.0" text="Food:" />
+      <Label layoutX="79.0" layoutY="579.0" text="WC:" />
+      <Label layoutX="79.0" layoutY="610.0" text="Bed:" />
+      <Label layoutX="77.0" layoutY="636.0" text="Bath:" />
+      <Label layoutX="46.0" layoutY="664.0" text="Roadtrain:" />
+      <Label layoutX="64.0" layoutY="498.0" text="Name:" />
+      <Label layoutX="42.0" layoutY="699.0" text="Longitude:" />
+      <Label layoutX="52.0" layoutY="729.0" text="Latitude:" />
+      <TextField fx:id="name_text" layoutX="131.0" layoutY="493.0" />
+      <CheckBox fx:id="addBlueCheck" layoutX="131.0" layoutY="524.0" mnemonicParsing="false" />
+      <CheckBox fx:id="foodCheck" layoutX="131.0" layoutY="551.0" mnemonicParsing="false" />
+      <CheckBox fx:id="wcCheck" layoutX="131.0" layoutY="578.0" mnemonicParsing="false" />
+      <CheckBox fx:id="bedCheck" layoutX="131.0" layoutY="608.0" mnemonicParsing="false" />
+      <CheckBox fx:id="bathCheck" layoutX="131.0" layoutY="635.0" mnemonicParsing="false" />
+      <CheckBox fx:id="roadtrainCheck" layoutX="131.0" layoutY="664.0" mnemonicParsing="false" />
+      <TextField fx:id="long_text" layoutX="131.0" layoutY="694.0" />
+      <TextField fx:id="lat_text" layoutX="131.0" layoutY="724.0" />
    </children>
 </AnchorPane>

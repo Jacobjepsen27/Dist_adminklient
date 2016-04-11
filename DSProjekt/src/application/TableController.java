@@ -16,11 +16,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -30,6 +32,33 @@ import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
 
 public class TableController implements Initializable{
+	
+	@FXML
+	private TextField name_text;
+	
+	@FXML
+	private TextField long_text;
+	
+	@FXML
+	private TextField lat_text;
+	
+	@FXML
+	private CheckBox addBlueCheck;
+	
+	@FXML
+	private CheckBox bathCheck;
+	
+	@FXML
+	private CheckBox bedCheck;
+	
+	@FXML
+	private CheckBox wcCheck;
+	
+	@FXML
+	private CheckBox roadtrainCheck;
+	
+	@FXML
+	private CheckBox foodCheck;
 	
 	@FXML
 	private Button addSpot_btn;
@@ -237,17 +266,8 @@ public class TableController implements Initializable{
 	}
 	
 	@FXML
-	private void addSpotAction(ActionEvent event) throws IOException{
-		Stage stage = new Stage();
-		FXMLLoader myLoader = new FXMLLoader(getClass().getResource("addSpots.fxml"));
-		AnchorPane myPane = (AnchorPane)myLoader.load();
-		AddController controller = (AddController) myLoader.getController();
-		controller.setCurrentStage(stage);
-		Scene scene = new Scene(myPane,600,400);
-		currentStage.close();
-		setCurrentStage(stage);
-		stage.setScene(scene);
-		stage.show();
+	private void addSpotAction(ActionEvent event) throws IOException{	
+		
 	}
 	
 	//Gemmer den nuværende scene
