@@ -18,7 +18,7 @@ public class Connection {
 		
 	}
 	
-	public void getSpotsFromServer(String username, String password) throws MalformedURLException{
+	public void getUser(String username, String password) throws MalformedURLException{
 		this.url = new URL("http://javabog.dk:9901/brugeradmin?wsdl");
 		this.qName = new QName("http://soap.transport.brugerautorisation/", "BrugeradminImplService");
 		this.service = Service.create(url, qName);

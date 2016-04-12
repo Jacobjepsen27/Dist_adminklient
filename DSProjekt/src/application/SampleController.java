@@ -85,10 +85,12 @@ public class SampleController {
 	@FXML
 	void loginAdmin(ActionEvent event) throws Exception {
 		//Hvis brugerlogin lykkedes
+//		if(getUser(username_text.getText(),pass_text.getText())){
+//			loadTestSpots();
+//			createTableView();
+//		}
+		//test login
 		if(true){
-//			currentStage.close();
-//			Tableview tv = new Tableview();
-//			tv.start(new Stage());
 			loadTestSpots();
 			createTableView();
 		}
@@ -99,9 +101,9 @@ public class SampleController {
 		this.currentStage = stage;
 	}
 
-	public Boolean getList(String un, String ps){
+	public Boolean getUser(String un, String ps){
 		try {
-			con.getSpotsFromServer(un,ps);
+			con.getUser(un,ps);
 			return true;
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
