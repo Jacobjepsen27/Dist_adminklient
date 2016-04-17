@@ -3,12 +3,14 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import com.sun.prism.impl.Disposer.Record;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -34,35 +36,41 @@ import javafx.util.converter.NumberStringConverter;
 
 public class TableController implements Initializable{
 	
+	public HashMap map = new HashMap();
+	public ArrayList<Spot> list2;
+
 	@FXML
 	private TextField name_text;
-	
+
 	@FXML
 	private TextField long_text;
-	
+
 	@FXML
 	private TextField lat_text;
-	
+
 	@FXML
 	private CheckBox addBlueCheck;
-	
+
 	@FXML
 	private CheckBox bathCheck;
-	
+
 	@FXML
 	private CheckBox bedCheck;
-	
+
 	@FXML
 	private CheckBox wcCheck;
-	
+
 	@FXML
 	private CheckBox roadtrainCheck;
-	
+
 	@FXML
 	private CheckBox foodCheck;
-	
+
 	@FXML
 	private Button addSpot_btn;
+
+	@FXML
+	private Button gem_btn;
 
 	@FXML
 	private TableColumn<Spot,Integer> idCol;
@@ -102,16 +110,16 @@ public class TableController implements Initializable{
 
 	@FXML
 	private TableColumn<Spot, Boolean> delCol;
-	
+
 	private Stage currentStage;
 
 	public ObservableList<Spot> data = FXCollections.observableArrayList();
-//			new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false),
-//			new Spot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false),
-//			new Spot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false),
-//			new Spot(4, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694, false),
-//			new Spot(5, false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694, false)
-//			);
+	//			new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false),
+	//			new Spot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false),
+	//			new Spot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false),
+	//			new Spot(4, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694, false),
+	//			new Spot(5, false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694, false)
+	//			);
 
 	//	    final ObservableList<Spot> data = FXCollections.observableArrayList(
 	//				new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694),
@@ -128,8 +136,8 @@ public class TableController implements Initializable{
 		tableViewId.setEditable(true);
 
 
-//		idCol.setPrefWidth(25);
-//		idCol.setCellValueFactory(new PropertyValueFactory<Spot,Integer>("id"));
+		idCol.setPrefWidth(25);
+		idCol.setCellValueFactory(new PropertyValueFactory<Spot,Integer>("id"));
 
 		addBlueCol.setPrefWidth(70);
 		addBlueCol.setCellValueFactory(
@@ -225,6 +233,7 @@ public class TableController implements Initializable{
 					((Spot) t.getTableView().getItems().get(
 							t.getTablePosition().getRow())
 							).setRoadtrain(t.getNewValue());
+//					saveId(t.getRowValue().getId());
 				});
 
 		longCol.setPrefWidth(125);
@@ -242,11 +251,13 @@ public class TableController implements Initializable{
 					((Spot) t.getTableView().getItems().get(
 							t.getTablePosition().getRow())
 							).setName(t.getNewValue());
+//					saveId(t.getRowValue().getId());
 				});
 
 		updCol.setPrefWidth(125);
 		updCol.setCellValueFactory(new PropertyValueFactory<Spot,Long>("lastUpdated"));
 
+		
 		delCol.setCellValueFactory(
 				new Callback<CellDataFeatures<Spot,Boolean>,ObservableValue<Boolean>>()
 				{
@@ -261,25 +272,57 @@ public class TableController implements Initializable{
 							t.getTablePosition().getRow())
 							).setDeleted(t.getNewValue());
 				});
+		
+//		data.addListener(new ListChangeListener<Spot>(){
+//
+//			@Override
+//			public void onChanged(javafx.collections.ListChangeListener.Change<? extends Spot> c) {
+//				// TODO Auto-generated method stub
+//				while(c.next()){
+//					if(c.wasUpdated()){
+//						System.out.println(c.getAddedSubList().size());
+//					}
+//				}
+//			}
+//		});
 
 		tableViewId.setItems(data);
 	}
-	
+
 	@FXML
 	private void addSpotAction(ActionEvent event) throws IOException{	
-		data.add(new Spot(addBlueCheck.isSelected(), foodCheck.isSelected(), wcCheck.isSelected(), bedCheck.isSelected(), bathCheck.isSelected(), roadtrainCheck.isSelected(), Float.parseFloat(long_text.getText()), Float.parseFloat(lat_text.getText()), name_text.getText(), System.currentTimeMillis(), false));
+		data.add(new Spot(0,addBlueCheck.isSelected(), foodCheck.isSelected(), wcCheck.isSelected(), bedCheck.isSelected(), bathCheck.isSelected(), roadtrainCheck.isSelected(), Float.parseFloat(long_text.getText()), Float.parseFloat(lat_text.getText()), name_text.getText(), System.currentTimeMillis(), false));
 	}
-	
+
+	@FXML
+	private void gemAction(ActionEvent event){
+		//her skal spots med ændringer findes og derefter sendes til server
+//		for(int i=0; i<list2.size();i++){
+			System.out.println("list2 size"+list2.size());
+			System.out.println("data size"+data.size());
+			System.out.println("Liste 2 "+list2.get(0).getDeleted());
+			System.out.println("Data liste "+data.get(0).getDeleted());
+//		}
+
+	}
+
 	public void setObservableData(ArrayList<Spot> list){
-		for(int i=0; i<list.size(); i++){
+		list2 = new ArrayList<Spot>(list);
+//		data = FXCollections.observableArrayList(list);
+		for(int i=0; i<list.size();i++){
 			data.add(list.get(i));
 		}
 	}
-	
+
 	//Gemmer den nuværende scene
-		public void setCurrentStage(Stage stage){
-			this.currentStage = stage;
-		}
+	public void setCurrentStage(Stage stage){
+		this.currentStage = stage;
+	}
+	
+	public void rettedeSpots(int id){
+//		int[] tal = new int[data.size()+1];
+//		map.put(id,null);
+	}
 
 }
 

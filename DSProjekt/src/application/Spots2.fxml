@@ -42,5 +42,6 @@
       <CheckBox fx:id="roadtrainCheck" layoutX="131.0" layoutY="664.0" mnemonicParsing="false" />
       <TextField fx:id="long_text" layoutX="131.0" layoutY="694.0" />
       <TextField fx:id="lat_text" layoutX="131.0" layoutY="724.0" />
+      <Button fx:id="gem_btn" layoutX="868.0" layoutY="480.0" mnemonicParsing="false" onAction="#gemAction" text="Gem" />
    </children>
 </AnchorPane>
