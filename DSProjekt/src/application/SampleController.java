@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 
 public class SampleController {
 
-	private ArrayList<Spot> testSpots;
+	public ArrayList<Spot> testSpots = new ArrayList<Spot>();
 
 	private Stage currentStage;
 	private Connection con = new Connection();
@@ -91,6 +91,7 @@ public class SampleController {
 //		}
 		//test login
 		if(true){
+//			loadTestSpotsFromTestServer();
 			loadTestSpots();
 			createTableView();
 		}
@@ -111,18 +112,22 @@ public class SampleController {
 		}
 		return false;
 	}
+	
+	public void loadTestSpotsFromTestServer(){
+		RestClient rc = new RestClient();
+		testSpots = rc.hentJsonFraServer();
+	}
 
 	public void loadTestSpots(){
 		//her modtages json og laves om til en arraylist. skal nok kaldes gennem connection klassen
-		RestClient rc = new RestClient();
-		testSpots = rc.hentJsonFraServer();
 		//testdata:
-//		testSpots.add(new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false));
-//		testSpots.add(new Spot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false));
-//		testSpots.add(new Spot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false));
-//		testSpots.add(new Spot(4, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694, false));
-//		testSpots.add(new Spot(5, false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694, false));
-//		testSpots.add(new Spot(6, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 6", 240694, false));
+//		testSpots = new ArrayList<Spot>();
+		testSpots.add(new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false));
+		testSpots.add(new Spot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false));
+		testSpots.add(new Spot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false));
+		testSpots.add(new Spot(4, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694, false));
+		testSpots.add(new Spot(5, false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694, false));
+		testSpots.add(new Spot(6, true, true, true, true, true, false, (float)21.012, (float)22.012, "Spot 6", 240694, false));
 		
 //		testSpots.add(new Spot(true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 6", 240694, false));
 //		testSpots.add(new Spot(true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false));

@@ -20,7 +20,8 @@
             <TableColumn fx:id="latCol" prefWidth="93.5567626953125" text="latitude" />
             <TableColumn fx:id="nameCol" prefWidth="63.0" text="name" />
             <TableColumn fx:id="updCol" prefWidth="44.0" text="lastUpdated" />
-            <TableColumn fx:id="delCol" prefWidth="75.0" text="deleted" />
+            <TableColumn fx:id="delCol" prefWidth="61.0" text="deleted" />
+            <TableColumn fx:id="retCol" prefWidth="89.0" text="Ret" />
         </columns>
       </TableView>
       <Button fx:id="addSpot_btn" layoutX="131.0" layoutY="769.0" mnemonicParsing="false" onAction="#addSpotAction" prefHeight="27.0" prefWidth="167.0" text="Tilføj Spot" />
