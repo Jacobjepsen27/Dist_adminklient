@@ -234,13 +234,13 @@ public class TableController implements Initializable{
 				});
 
 		roadtrainCol.setPrefWidth(70);
-		roadtrainCol.setCellValueFactory(
-				new Callback<CellDataFeatures<Spot,Boolean>,ObservableValue<Boolean>>()
-				{
-					public ObservableValue<Boolean> call(CellDataFeatures<Spot, Boolean> param) {
-						return param.getValue().getRoadtrain();
-					}   
-				});
+//		roadtrainCol.setCellValueFactory(
+//				new Callback<CellDataFeatures<Spot,Boolean>,ObservableValue<Boolean>>()
+//				{
+//					public ObservableValue<Boolean> call(CellDataFeatures<Spot, Boolean> param) {
+//						return param.getValue().getRoadtrain();
+//					}   
+//				});
 		roadtrainCol.setCellFactory(CheckBoxTableCell.<Spot>forTableColumn(roadtrainCol));
 
 		longCol.setPrefWidth(125);
@@ -258,8 +258,8 @@ public class TableController implements Initializable{
 							t.getTablePosition().getRow())
 							).setName(t.getNewValue());
 					int id = t.getRowValue().getId();
-					rettedeSpots(id);
-					System.out.println("name col rettet ved id " + id);
+//					rettedeSpots(id);
+//					System.out.println("name col rettet ved id " + id);
 				});
 
 		updCol.setPrefWidth(125);
@@ -311,19 +311,31 @@ public class TableController implements Initializable{
 	@FXML
 	private void gemAction(ActionEvent event){
 		//her skal spots med ændringer findes og derefter sendes til server
+		
+		//Spots der hentes fra server og sættes som dataArray
+		ArrayList<Spot> nyeSpots = new ArrayList<Spot>();
+		
+		//Nedenstående kode finder spots der er rettet i:
 		HashMap<Integer,Spot> map2 = new HashMap<Integer,Spot>();
 		for (Spot spot : data) {
 			int id = spot.getId();
 			map2.put(id, spot);
 		}
-		
 		Set keys = map.keySet();
 		for (Object object : keys) {
 			int key = (Integer) object;
 			saveSpot.add(map2.get(key));
 		}
-		RestClient rc = new RestClient();
 		
+		//Laver RestClient objekt
+		RestClient rc = new RestClient();
+		//Clear dataArray og udfylder gui med "friske" spots
+		data.clear();
+		//Instantierer mit array med de nye spots. Metoden tager imod de spots der er ændrede og sender disse til serveren
+		nyeSpots = rc.saveChangedSpots(saveSpot);
+		for(int i=0; i<nyeSpots.size();i++){
+			data.add(nyeSpots.get(i));
+		}
 //		System.out.println(map.size());
 //		for (Spot test : saveSpot) {
 //			System.out.println("rettede spot har id "+test.getId());
@@ -336,6 +348,7 @@ public class TableController implements Initializable{
 		for(int i=0; i<list.size();i++){
 			data.add(list.get(i));
 		}
+//		System.out.println(data.get(0).getAddBlue());
 	}
 
 	//Gemmer den nuværende scene

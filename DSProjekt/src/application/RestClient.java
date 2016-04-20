@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.sun.research.ws.wadl.Request;
+
 public class RestClient {
 
 	public  ArrayList<Spot> hentJsonFraServer(){ 
@@ -47,4 +49,25 @@ public class RestClient {
 		}
 		return spots;
 	}
+	
+	public ArrayList<Spot> saveChangedSpots(ArrayList<Spot> savedSpots){
+		ArrayList<Spot> list = new ArrayList<Spot>();
+		saveSpotsToServer(savedSpots);
+		list = hentJsonFraServer();
+		return list;
+	}
+	
+	private void saveSpotsToServer(ArrayList<Spot> list){
+		//rest magic skal ske her
+		
+		
+		
+		
+		Client client = ClientBuilder.newClient();
+		
+//		Request req = client.target("http://posttestserver.com/data/").request(MediaType.APPLICATION_JSON).post(list);
+		
+		
+	}
+	
 }

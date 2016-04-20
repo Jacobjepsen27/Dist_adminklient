@@ -95,8 +95,8 @@ public class Spot {
 		bath.set(b);
 	}
 	
-	public ObservableValue<Boolean> getRoadtrain(){
-		return roadtrain;
+	public boolean getRoadtrain(){
+		return roadtrain.get();
 	}
 	
 	public void setRoadtrain(boolean b){
