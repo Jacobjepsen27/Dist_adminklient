@@ -1,146 +1,63 @@
 package application;
 
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-
 public class Spot {
 	
-	//Felter til hvad Spots indeholder
-	private final SimpleBooleanProperty addBlue, food, wc, bed, bath, roadtrain, deleted;
-    private final SimpleFloatProperty longitude, latitude;
-    private final SimpleStringProperty name;
-    private SimpleLongProperty lastUpdated;
-    private  SimpleIntegerProperty id;
+	private boolean addBlue, food, wc, bed, bath, roadtrain, deleted;
+    private float longitude, latitude;
+    private String name;
+    private long lastUpdated;
+    private int id;
 	
 	public Spot(int id, boolean addBlue, boolean food, boolean wc, boolean bed, boolean bath, boolean roadtrain, float longitude, float latitude, String name, long lastUpdated, boolean deleted){
-		this.id = new SimpleIntegerProperty(id);
-        this.addBlue = new SimpleBooleanProperty(addBlue);
-        this.food = new SimpleBooleanProperty(food);
-        this.wc = new SimpleBooleanProperty(wc);
-        this.bed = new SimpleBooleanProperty(bed);
-        this.bath = new SimpleBooleanProperty(bath);
-        this.roadtrain = new SimpleBooleanProperty(roadtrain);
-        this.longitude = new SimpleFloatProperty(longitude);
-        this.latitude = new SimpleFloatProperty(latitude);
-        this.name = new SimpleStringProperty(name);
-        this.lastUpdated = new SimpleLongProperty(lastUpdated);
-        this.deleted = new SimpleBooleanProperty(deleted);
+		this.id = id;
+        this.addBlue = addBlue;
+        this.food = food;
+        this.wc = wc;
+        this.bed = bed;
+        this.bath = bath;
+        this.roadtrain = roadtrain;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.name = name;
+        this.lastUpdated = lastUpdated;
+        this.deleted = deleted;
 	}
 	
-//	public Spot(boolean addBlue, boolean food, boolean wc, boolean bed, boolean bath, boolean roadtrain, float longitude, float latitude, String name, long lastUpdated, boolean deleted){
-//        this.addBlue = new SimpleBooleanProperty(addBlue);
-//        this.food = new SimpleBooleanProperty(food);
-//        this.wc = new SimpleBooleanProperty(wc);
-//        this.bed = new SimpleBooleanProperty(bed);
-//        this.bath = new SimpleBooleanProperty(bath);
-//        this.roadtrain = new SimpleBooleanProperty(roadtrain);
-//        this.longitude = new SimpleFloatProperty(longitude);
-//        this.latitude = new SimpleFloatProperty(latitude);
-//        this.name = new SimpleStringProperty(name);
-//        this.lastUpdated = new SimpleLongProperty(lastUpdated);
-//        this.deleted = new SimpleBooleanProperty(deleted);
-//	}
-
-//	}
-//	
 	public int getId(){
-		return id.get();
+		return id;
 	}
-//	
-//	public boolean getAddBlue(){
-//		return addBlue.get();
-//	}
-	
-	public ObservableValue<Boolean> getAddBlue(){
+	public boolean getAddBlue(){
 		return addBlue;
 	}
-	
-	public void setAddBlue(boolean b){
-		addBlue.set(b);
-	}
-	
-	public ObservableValue<Boolean> getFood(){
+	public boolean getFood(){
 		return food;
 	}
-	
-	public void setFood(boolean b){
-		food.set(b);
-	}
-	
-	public ObservableValue<Boolean> getWc(){
+	public boolean getWc(){
 		return wc;
 	}
-	
-	public void setWc(boolean b){
-		wc.set(b);
-	}
-	
-	public ObservableValue<Boolean> getBed(){
+	public boolean getBed(){
 		return bed;
 	}
-	
-	public void setBed(boolean b){
-		bed.set(b);
-	}
-	
-	public ObservableValue<Boolean> getBath(){
+	public boolean getBath(){
 		return bath;
 	}
-	
-	public void setBath(boolean b){
-		bath.set(b);
-	}
-	
 	public boolean getRoadtrain(){
-		return roadtrain.get();
+		return roadtrain;
 	}
-	
-	public void setRoadtrain(boolean b){
-		roadtrain.set(b);
-	}
-	
 	public float getLongitude(){
-		return longitude.get();
+		return longitude;
 	}
-	
-	public void setLongitude(float f){
-		longitude.set(f);
-	}
-	
 	public float getLatitude(){
-		return latitude.get();
+		return latitude;
 	}
-	
-	public void setLatitude(float f){
-		latitude.set(f);
-	}
-	
 	public String getName(){
-		return name.get();
+		return name;
 	}
-	
-	public void setName(String n){
-		name.set(n);
-	}
-	
 	public long getLastUpdated(){
-		return lastUpdated.get();
+		return lastUpdated;
 	}
-	
-	public void setLastUpdated(long n){
-		lastUpdated.set(n);
-	}
-	
-	public ObservableValue<Boolean> getDeleted(){
+	public boolean getDeleted(){
 		return deleted;
-	}
-	
-	public void setDeleted(boolean b){
-		deleted.set(b);
 	}
 
 }

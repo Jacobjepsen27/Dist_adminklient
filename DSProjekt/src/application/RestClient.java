@@ -1,6 +1,7 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -50,11 +51,32 @@ public class RestClient {
 		return spots;
 	}
 	
-	public ArrayList<Spot> saveChangedSpots(ArrayList<Spot> savedSpots){
+	public ArrayList<PSpot> saveChangedSpots(ArrayList<PSpot> ps){
 		ArrayList<Spot> list = new ArrayList<Spot>();
-		saveSpotsToServer(savedSpots);
+		ArrayList<PSpot> list2 = new ArrayList<PSpot>();
+		for(int i=0; i<ps.size(); i++){
+			list.add(new Spot(ps.get(i).getId(),ps.get(i).getAddBlue().getValue(),ps.get(i).getFood().getValue(),ps.get(i).getWc().getValue(),
+			ps.get(i).getBed().getValue(),ps.get(i).getBath().getValue(),ps.get(i).getRoadtrain().getValue(),ps.get(i).getLongitude(),
+			ps.get(i).getLatitude(),ps.get(i).getName(),ps.get(i).getLastUpdated(),ps.get(i).getDeleted().getValue()));			
+		}
+		
+		//Testkode til at se om Spotsne kan laves til JSON
+		JSONArray ja;
+		try {
+			ja = new JSONArray(Arrays.asList(list));
+			System.out.println(ja);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		saveSpotsToServer(list);
 		list = hentJsonFraServer();
-		return list;
+		for(int i=0; i<list.size(); i++){
+			list2.add(new PSpot(list.get(i).getId(), list.get(i).getAddBlue(), list.get(i).getFood(), list.get(i).getWc(), list.get(i).getBed(),
+					list.get(i).getBath(), list.get(i).getRoadtrain(), list.get(i).getLongitude(), list.get(i).getLatitude(),
+					list.get(i).getName(), list.get(i).getLastUpdated(), list.get(i).getDeleted()));
+		}
+		return list2;
 	}
 	
 	private void saveSpotsToServer(ArrayList<Spot> list){

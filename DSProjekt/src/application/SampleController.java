@@ -28,7 +28,9 @@ import javafx.stage.Stage;
 
 public class SampleController {
 
-	public ArrayList<Spot> testSpots = new ArrayList<Spot>();
+	public ArrayList<PSpot> PSpots = new ArrayList<PSpot>();
+	public ArrayList<Spot> Spots = new ArrayList<Spot>();
+	
 
 	private Stage currentStage;
 	private Connection con = new Connection();
@@ -91,8 +93,8 @@ public class SampleController {
 //		}
 		//test login
 		if(true){
-//			loadTestSpotsFromTestServer();
-			loadTestSpots();
+			loadTestSpotsFromTestServer();
+//			loadTestSpots();
 			createTableView();
 		}
 	}
@@ -115,19 +117,23 @@ public class SampleController {
 	
 	public void loadTestSpotsFromTestServer(){
 		RestClient rc = new RestClient();
-		testSpots = rc.hentJsonFraServer();
+		Spots = rc.hentJsonFraServer();
+		for(Spot s: Spots){
+			PSpots.add(new PSpot(s.getId(),s.getAddBlue(),s.getFood(),s.getWc(),s.getBed(),s.getBath(),s.getRoadtrain(),s.getLongitude(),s.getLatitude()
+					,s.getName(),s.getLastUpdated(),s.getDeleted()));
+		}
 	}
 
 	public void loadTestSpots(){
 		//her modtages json og laves om til en arraylist. skal nok kaldes gennem connection klassen
 		//testdata:
 //		testSpots = new ArrayList<Spot>();
-		testSpots.add(new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false));
-		testSpots.add(new Spot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false));
-		testSpots.add(new Spot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false));
-		testSpots.add(new Spot(4, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694, false));
-		testSpots.add(new Spot(5, false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694, false));
-		testSpots.add(new Spot(6, true, true, true, true, true, false, (float)21.012, (float)22.012, "Spot 6", 240694, false));
+		PSpots.add(new PSpot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false));
+		PSpots.add(new PSpot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false));
+		PSpots.add(new PSpot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false));
+		PSpots.add(new PSpot(4, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694, false));
+		PSpots.add(new PSpot(5, false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694, false));
+		PSpots.add(new PSpot(6, true, true, true, true, true, false, (float)21.012, (float)22.012, "Spot 6", 240694, false));
 		
 //		testSpots.add(new Spot(true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 6", 240694, false));
 //		testSpots.add(new Spot(true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false));
@@ -144,7 +150,7 @@ public class SampleController {
 		AnchorPane myPane = (AnchorPane)myLoader.load();
 		TableController controller = (TableController) myLoader.getController();
 		controller.setCurrentStage(stage);
-		controller.setObservableData(testSpots);
+		controller.setObservableData(PSpots);
 		Scene scene = new Scene(myPane,1100,800);
 		currentStage.close();
 		setCurrentStage(stage);

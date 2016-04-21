@@ -42,8 +42,8 @@ import javafx.util.converter.NumberStringConverter;
 public class TableController implements Initializable{
 	
 	public HashMap<Integer,Object> map = new HashMap<Integer,Object>();
-	public ArrayList<Spot> saveSpot = new ArrayList<Spot>();
-	public Spot spot;
+	public ArrayList<PSpot> saveSpot = new ArrayList<PSpot>();
+	public PSpot spot;
 
 	@FXML
 	private TextField name_text;
@@ -79,50 +79,50 @@ public class TableController implements Initializable{
 	private Button gem_btn;
 
 	@FXML
-	private TableColumn<Spot,Integer> idCol;
+	private TableColumn<PSpot,Integer> idCol;
 
 	@FXML
-	private TableColumn<Spot, Boolean> foodCol;
+	private TableColumn<PSpot, Boolean> foodCol;
 
 	@FXML
-	private TableColumn<Spot, Boolean> bathCol;
+	private TableColumn<PSpot, Boolean> bathCol;
 
 	@FXML
-	private TableColumn<Spot, Boolean> bedCol;
+	private TableColumn<PSpot, Boolean> bedCol;
 
 	@FXML
-	private TableColumn<Spot, String> nameCol;
+	private TableColumn<PSpot, String> nameCol;
 
 	@FXML
-	private TableColumn<Spot, Long> updCol;
+	private TableColumn<PSpot, Long> updCol;
 
 	@FXML
-	private TableColumn<Spot, Float> latCol;
+	private TableColumn<PSpot, Float> latCol;
 
 	@FXML
-	private TableColumn<Spot, Boolean> roadtrainCol;
+	private TableColumn<PSpot, Boolean> roadtrainCol;
 
 	@FXML
-	private TableColumn<Spot, Float> longCol;
+	private TableColumn<PSpot, Float> longCol;
 
 	@FXML
-	private TableView<Spot> tableViewId;
+	private TableView<PSpot> tableViewId;
 
 	@FXML
-	private TableColumn<Spot, Boolean> addBlueCol;
+	private TableColumn<PSpot, Boolean> addBlueCol;
 
 	@FXML
-	private TableColumn<Spot, Boolean> wcCol;
+	private TableColumn<PSpot, Boolean> wcCol;
 
 	@FXML
-	private TableColumn<Spot, Boolean> delCol;
+	private TableColumn<PSpot, Boolean> delCol;
 	
 	@FXML
 	private TableColumn retCol;
 
 	private Stage currentStage;
 
-	public final ObservableList<Spot> data =  FXCollections.observableArrayList();
+	public final ObservableList<PSpot> data =  FXCollections.observableArrayList();
 	//			new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false),
 	//			new Spot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false),
 	//			new Spot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false),
@@ -151,129 +151,127 @@ public class TableController implements Initializable{
 //		});
 		
 		idCol.setPrefWidth(25);
-		idCol.setCellValueFactory(new PropertyValueFactory<Spot,Integer>("id"));
+		idCol.setCellValueFactory(new PropertyValueFactory<PSpot,Integer>("id"));
 
 		addBlueCol.setPrefWidth(70);
 		addBlueCol.setCellValueFactory(
-				new Callback<CellDataFeatures<Spot,Boolean>,ObservableValue<Boolean>>()
+				new Callback<CellDataFeatures<PSpot,Boolean>,ObservableValue<Boolean>>()
 				{
-					public ObservableValue<Boolean> call(CellDataFeatures<Spot, Boolean> param) {
+					public ObservableValue<Boolean> call(CellDataFeatures<PSpot, Boolean> param) {
 						return param.getValue().getAddBlue();
 					}   
 				});
-		addBlueCol.setCellFactory(CheckBoxTableCell.<Spot>forTableColumn(addBlueCol));
+		addBlueCol.setCellFactory(CheckBoxTableCell.<PSpot>forTableColumn(addBlueCol));
 		addBlueCol.setOnEditCommit(
-				(CellEditEvent<Spot, Boolean> t) -> {
-					((Spot) t.getTableView().getItems().get(
+				(CellEditEvent<PSpot, Boolean> t) -> {
+					((PSpot) t.getTableView().getItems().get(
 							t.getTablePosition().getRow())
 							).setAddBlue(t.getNewValue());
 				});
 
 		foodCol.setPrefWidth(70);
 		foodCol.setCellValueFactory(
-				new Callback<CellDataFeatures<Spot,Boolean>,ObservableValue<Boolean>>()
+				new Callback<CellDataFeatures<PSpot,Boolean>,ObservableValue<Boolean>>()
 				{
-					public ObservableValue<Boolean> call(CellDataFeatures<Spot, Boolean> param) {
+					public ObservableValue<Boolean> call(CellDataFeatures<PSpot, Boolean> param) {
 						return param.getValue().getFood();
 					}   
 				});
-		foodCol.setCellFactory(CheckBoxTableCell.<Spot>forTableColumn(foodCol));
+		foodCol.setCellFactory(CheckBoxTableCell.<PSpot>forTableColumn(foodCol));
 		foodCol.setOnEditCommit(
-				(CellEditEvent<Spot, Boolean> t) -> {
-					((Spot) t.getTableView().getItems().get(
+				(CellEditEvent<PSpot, Boolean> t) -> {
+					((PSpot) t.getTableView().getItems().get(
 							t.getTablePosition().getRow())
 							).setFood(t.getNewValue());
 				});
 
 		wcCol.setPrefWidth(70);
 		wcCol.setCellValueFactory(
-				new Callback<CellDataFeatures<Spot,Boolean>,ObservableValue<Boolean>>()
+				new Callback<CellDataFeatures<PSpot,Boolean>,ObservableValue<Boolean>>()
 				{
-					public ObservableValue<Boolean> call(CellDataFeatures<Spot, Boolean> param) {
+					public ObservableValue<Boolean> call(CellDataFeatures<PSpot, Boolean> param) {
 						return param.getValue().getWc();
 					}   
 				});
-		wcCol.setCellFactory(CheckBoxTableCell.<Spot>forTableColumn(wcCol));
+		wcCol.setCellFactory(CheckBoxTableCell.<PSpot>forTableColumn(wcCol));
 		wcCol.setOnEditCommit(
-				(CellEditEvent<Spot, Boolean> t) -> {
-					((Spot) t.getTableView().getItems().get(
+				(CellEditEvent<PSpot, Boolean> t) -> {
+					((PSpot) t.getTableView().getItems().get(
 							t.getTablePosition().getRow())
 							).setWc(t.getNewValue());
 				});
 
 		bedCol.setPrefWidth(70);
 		bedCol.setCellValueFactory(
-				new Callback<CellDataFeatures<Spot,Boolean>,ObservableValue<Boolean>>()
+				new Callback<CellDataFeatures<PSpot,Boolean>,ObservableValue<Boolean>>()
 				{
-					public ObservableValue<Boolean> call(CellDataFeatures<Spot, Boolean> param) {
+					public ObservableValue<Boolean> call(CellDataFeatures<PSpot, Boolean> param) {
 						return param.getValue().getBed();
 					}   
 				});
-		bedCol.setCellFactory(CheckBoxTableCell.<Spot>forTableColumn(bedCol));
+		bedCol.setCellFactory(CheckBoxTableCell.<PSpot>forTableColumn(bedCol));
 		bedCol.setOnEditCommit(
-				(CellEditEvent<Spot, Boolean> t) -> {
-					((Spot) t.getTableView().getItems().get(
+				(CellEditEvent<PSpot, Boolean> t) -> {
+					((PSpot) t.getTableView().getItems().get(
 							t.getTablePosition().getRow())
 							).setBed(t.getNewValue());
 				});
 
 		bathCol.setPrefWidth(70);
 		bathCol.setCellValueFactory(
-				new Callback<CellDataFeatures<Spot,Boolean>,ObservableValue<Boolean>>()
+				new Callback<CellDataFeatures<PSpot,Boolean>,ObservableValue<Boolean>>()
 				{
-					public ObservableValue<Boolean> call(CellDataFeatures<Spot, Boolean> param) {
+					public ObservableValue<Boolean> call(CellDataFeatures<PSpot, Boolean> param) {
 						return param.getValue().getBath();
 					}   
 				});
-		bathCol.setCellFactory(CheckBoxTableCell.<Spot>forTableColumn(bathCol));
+		bathCol.setCellFactory(CheckBoxTableCell.<PSpot>forTableColumn(bathCol));
 		bathCol.setOnEditCommit(
-				(CellEditEvent<Spot, Boolean> t) -> {
-					((Spot) t.getTableView().getItems().get(
+				(CellEditEvent<PSpot, Boolean> t) -> {
+					((PSpot) t.getTableView().getItems().get(
 							t.getTablePosition().getRow())
 							).setBath(t.getNewValue());
 				});
 
 		roadtrainCol.setPrefWidth(70);
-//		roadtrainCol.setCellValueFactory(
-//				new Callback<CellDataFeatures<Spot,Boolean>,ObservableValue<Boolean>>()
-//				{
-//					public ObservableValue<Boolean> call(CellDataFeatures<Spot, Boolean> param) {
-//						return param.getValue().getRoadtrain();
-//					}   
-//				});
-		roadtrainCol.setCellFactory(CheckBoxTableCell.<Spot>forTableColumn(roadtrainCol));
+		roadtrainCol.setCellValueFactory(
+				new Callback<CellDataFeatures<PSpot,Boolean>,ObservableValue<Boolean>>()
+				{
+					public ObservableValue<Boolean> call(CellDataFeatures<PSpot, Boolean> param) {
+						return param.getValue().getRoadtrain();
+					}   
+				});
+		roadtrainCol.setCellFactory(CheckBoxTableCell.<PSpot>forTableColumn(roadtrainCol));
 
 		longCol.setPrefWidth(125);
-		longCol.setCellValueFactory(new PropertyValueFactory<Spot,Float>("longitude"));
+		longCol.setCellValueFactory(new PropertyValueFactory<PSpot,Float>("longitude"));
 
 		latCol.setPrefWidth(125);
-		latCol.setCellValueFactory(new PropertyValueFactory<Spot,Float>("latitude"));
+		latCol.setCellValueFactory(new PropertyValueFactory<PSpot,Float>("latitude"));
 
 		nameCol.setPrefWidth(125);
-		nameCol.setCellValueFactory(new PropertyValueFactory<Spot,String>("name"));
-		nameCol.setCellFactory(TextFieldTableCell.<Spot>forTableColumn());
+		nameCol.setCellValueFactory(new PropertyValueFactory<PSpot,String>("name"));
+		nameCol.setCellFactory(TextFieldTableCell.<PSpot>forTableColumn());
 		nameCol.setOnEditCommit(
-				(CellEditEvent<Spot, String> t) -> {
-					((Spot) t.getTableView().getItems().get(
+				(CellEditEvent<PSpot, String> t) -> {
+					((PSpot) t.getTableView().getItems().get(
 							t.getTablePosition().getRow())
 							).setName(t.getNewValue());
 					int id = t.getRowValue().getId();
-//					rettedeSpots(id);
-//					System.out.println("name col rettet ved id " + id);
 				});
 
 		updCol.setPrefWidth(125);
-		updCol.setCellValueFactory(new PropertyValueFactory<Spot,Long>("lastUpdated"));
+		updCol.setCellValueFactory(new PropertyValueFactory<PSpot,Long>("lastUpdated"));
 
 		
 		delCol.setCellValueFactory(
-				new Callback<CellDataFeatures<Spot,Boolean>,ObservableValue<Boolean>>()
+				new Callback<CellDataFeatures<PSpot,Boolean>,ObservableValue<Boolean>>()
 				{
-					public ObservableValue<Boolean> call(CellDataFeatures<Spot, Boolean> param) {
+					public ObservableValue<Boolean> call(CellDataFeatures<PSpot, Boolean> param) {
 						return param.getValue().getDeleted();
 					}   
 				});
-		delCol.setCellFactory(CheckBoxTableCell.<Spot>forTableColumn(delCol));
+		delCol.setCellFactory(CheckBoxTableCell.<PSpot>forTableColumn(delCol));
 //		delCol.setCellFactory(col -> {
 //            CheckBoxTableCell<Spot, Boolean> cell = new CheckBoxTableCell<>(index -> {
 //                BooleanProperty active = new SimpleBooleanProperty();
@@ -316,8 +314,8 @@ public class TableController implements Initializable{
 		ArrayList<Spot> nyeSpots = new ArrayList<Spot>();
 		
 		//Nedenstående kode finder spots der er rettet i:
-		HashMap<Integer,Spot> map2 = new HashMap<Integer,Spot>();
-		for (Spot spot : data) {
+		HashMap<Integer,PSpot> map2 = new HashMap<Integer,PSpot>();
+		for (PSpot spot : data) {
 			int id = spot.getId();
 			map2.put(id, spot);
 		}
@@ -329,13 +327,12 @@ public class TableController implements Initializable{
 		
 		//Laver RestClient objekt
 		RestClient rc = new RestClient();
-		//Clear dataArray og udfylder gui med "friske" spots
-		data.clear();
-		//Instantierer mit array med de nye spots. Metoden tager imod de spots der er ændrede og sender disse til serveren
-		nyeSpots = rc.saveChangedSpots(saveSpot);
-		for(int i=0; i<nyeSpots.size();i++){
-			data.add(nyeSpots.get(i));
-		}
+
+//		nyeSpots = rc.saveChangedSpots(saveSpot);
+		setObservableData(rc.saveChangedSpots(saveSpot));
+//		for(int i=0; i<nyeSpots.size();i++){
+//			data.add(nyeSpots.get(i));
+//		}
 //		System.out.println(map.size());
 //		for (Spot test : saveSpot) {
 //			System.out.println("rettede spot har id "+test.getId());
@@ -343,7 +340,7 @@ public class TableController implements Initializable{
 //		}
 	}
 
-	public void setObservableData(ArrayList<Spot> list){
+	public void setObservableData(ArrayList<PSpot> list){
 		data.clear();
 		for(int i=0; i<list.size();i++){
 			data.add(list.get(i));
