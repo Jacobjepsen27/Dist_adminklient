@@ -308,7 +308,6 @@ public class TableController implements Initializable{
 
 	@FXML
 	private void gemAction(ActionEvent event){
-		//her skal spots med ændringer findes og derefter sendes til server
 		
 		//Spots der hentes fra server og sættes som dataArray
 		ArrayList<Spot> nyeSpots = new ArrayList<Spot>();
@@ -327,17 +326,7 @@ public class TableController implements Initializable{
 		
 		//Laver RestClient objekt
 		RestClient rc = new RestClient();
-
-//		nyeSpots = rc.saveChangedSpots(saveSpot);
 		setObservableData(rc.saveChangedSpots(saveSpot));
-//		for(int i=0; i<nyeSpots.size();i++){
-//			data.add(nyeSpots.get(i));
-//		}
-//		System.out.println(map.size());
-//		for (Spot test : saveSpot) {
-//			System.out.println("rettede spot har id "+test.getId());
-//			System.out.println("navn "+test.getName());
-//		}
 	}
 
 	public void setObservableData(ArrayList<PSpot> list){
