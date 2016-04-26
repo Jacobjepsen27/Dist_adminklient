@@ -11,14 +11,18 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
 import com.sun.research.ws.wadl.Request;
 
 public class RestClient {
+	
+	public Gson gson = new Gson();
 
 	public  ArrayList<Spot> hentJsonFraServer(){ 
 		Client client = ClientBuilder.newClient();
@@ -84,30 +88,30 @@ public class RestClient {
 	}
 	
 	private void saveSpotsToServer(ArrayList<Spot> list){
-		//rest magic skal ske her
+		
+		System.out.println(list.get(0).getId());
 		System.out.println("liste størrelse i rest: "+list.size());
-		JSONArray ja = new JSONArray(list);
+		String input = gson.toJson(list);
 		
-//		for(int i=0; i<list.size();i++){
-//			Spot spot = new Spot();
-//			spot.setId(list.get(i).getId());
-//			spot.setAddBlue(list.get(i).getAddBlue());
-//			spot.setFood(list.get(i).getFood());
-//			spot.setWc(list.get(i).getWc());
-//			spot.setBed(list.get(i).getBed());
-//			spot.setBath(list.get(i).getBath());
-//			spot.setRoadtrain(list.get(i).getRoadtrain());
-//			spot.setLongitude(list.get(i).getLongitude());
-//			spot.setLatitude(list.get(i).getLatitude());
-//			spot.setName(list.get(i).getName());
-//			spot.setLastUpdated(list.get(i).getLastUpdated());
-//			spot.setDeleted(list.get(i).getDeleted());
+		Client client = ClientBuilder.newClient();
+		Response res = client.target("http://localhost:8080/ConvoyServer/webresources/convoy/edit/spot").request(MediaType.APPLICATION_JSON).put(Entity.entity(input, MediaType.APPLICATION_JSON));
+		String resultString = res.readEntity(String.class);
 		
-			Client client = ClientBuilder.newClient();
-			Response res = client.target("http://localhost:8080/ConvoyServer/webresources/convoy/edit/spot").request(MediaType.APPLICATION_JSON).put(Entity.entity(ja, MediaType.APPLICATION_JSON));
-			String resultString = res.readEntity(String.class);
-			System.out.println(resultString);
+		System.out.println(resultString);
 		
 	}
-	
+//	for(int i=0; i<list.size();i++){
+//	Spot spot = new Spot();
+//	spot.setId(list.get(i).getId());
+//	spot.setAddBlue(list.get(i).getAddBlue());
+//	spot.setFood(list.get(i).getFood());
+//	spot.setWc(list.get(i).getWc());
+//	spot.setBed(list.get(i).getBed());
+//	spot.setBath(list.get(i).getBath());
+//	spot.setRoadtrain(list.get(i).getRoadtrain());
+//	spot.setLongitude(list.get(i).getLongitude());
+//	spot.setLatitude(list.get(i).getLatitude());
+//	spot.setName(list.get(i).getName());
+//	spot.setLastUpdated(list.get(i).getLastUpdated());
+//	spot.setDeleted(list.get(i).getDeleted());
 }
