@@ -79,7 +79,7 @@ public class RestClient {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		saveSpotsToServer(list);
+		saveChangedSpotsToServer(list);
 		list = hentJsonFraServer();
 //		for(int i=0; i<list.size(); i++){
 //			list2.add(new PSpot(list.get(i).getId(), list.get(i).getAddBlue(), list.get(i).getFood(), list.get(i).getWc(), list.get(i).getBed(),
@@ -90,7 +90,16 @@ public class RestClient {
 		return list2;
 	}
 	
-	private void saveSpotsToServer(ArrayList<Spot> list){
+	public void saveNewSpotToServer(Spot s){
+		String input = gson.toJson(s);
+		Client client = ClientBuilder.newClient();
+		Response res = client.target("http://localhost:8080/ConvoyServer/webresources/convoy/create/spot").request(MediaType.APPLICATION_JSON).post(Entity.entity(input, MediaType.APPLICATION_JSON));
+		String resultString = res.readEntity(String.class);
+		
+		System.out.println(resultString);
+	}
+	
+	private void saveChangedSpotsToServer(ArrayList<Spot> list){
 
 		System.out.println("liste størrelse i rest: "+list.size());
 		String input = gson.toJson(list);

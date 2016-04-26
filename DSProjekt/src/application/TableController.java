@@ -44,6 +44,7 @@ public class TableController implements Initializable{
 	public HashMap<Integer,Object> map = new HashMap<Integer,Object>();
 	public ArrayList<PSpot> saveSpot = new ArrayList<PSpot>();
 	public PSpot spot;
+	public RestClient rc = new RestClient();
 
 	@FXML
 	private TextField name_text;
@@ -304,6 +305,8 @@ public class TableController implements Initializable{
 	@FXML
 	private void addSpotAction(ActionEvent event) throws IOException{	
 //		data.add(new Spot(0,addBlueCheck.isSelected(), foodCheck.isSelected(), wcCheck.isSelected(), bedCheck.isSelected(), bathCheck.isSelected(), roadtrainCheck.isSelected(), Float.parseFloat(long_text.getText()), Float.parseFloat(lat_text.getText()), name_text.getText(), System.currentTimeMillis(), false));
+		Spot spot = new Spot(0,addBlueCheck.isSelected(), foodCheck.isSelected(), wcCheck.isSelected(), bedCheck.isSelected(), bathCheck.isSelected(), roadtrainCheck.isSelected(), Float.parseFloat(long_text.getText()), Float.parseFloat(lat_text.getText()), name_text.getText(), System.currentTimeMillis(), false);
+		rc.saveNewSpotToServer(spot);
 	}
 
 	@FXML
@@ -325,7 +328,7 @@ public class TableController implements Initializable{
 		}
 		
 		//Laver RestClient objekt
-		RestClient rc = new RestClient();
+//		RestClient rc = new RestClient();
 		setObservableData(rc.saveChangedSpots(saveSpot));
 	}
 
