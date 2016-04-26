@@ -5,9 +5,13 @@ import java.util.Arrays;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.client.ClientResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,15 +64,15 @@ public class RestClient {
 			ps.get(i).getLatitude(),ps.get(i).getName(),ps.get(i).getLastUpdated(),ps.get(i).getDeleted().getValue()));			
 		}
 		
-		//Testkode til at se om Spotsne kan laves til JSON
-		JSONArray ja;
-		try {
-			ja = new JSONArray(Arrays.asList(list));
-			System.out.println(ja);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		//Testkode til at se om Spotsne kan laves til JSON
+//		JSONArray ja;
+//		try {
+//			ja = new JSONArray(Arrays.asList(list));
+//			System.out.println(ja);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		saveSpotsToServer(list);
 		list = hentJsonFraServer();
 		for(int i=0; i<list.size(); i++){
@@ -81,14 +85,28 @@ public class RestClient {
 	
 	private void saveSpotsToServer(ArrayList<Spot> list){
 		//rest magic skal ske her
+		System.out.println("liste størrelse i rest: "+list.size());
+		JSONArray ja = new JSONArray(list);
 		
+//		for(int i=0; i<list.size();i++){
+//			Spot spot = new Spot();
+//			spot.setId(list.get(i).getId());
+//			spot.setAddBlue(list.get(i).getAddBlue());
+//			spot.setFood(list.get(i).getFood());
+//			spot.setWc(list.get(i).getWc());
+//			spot.setBed(list.get(i).getBed());
+//			spot.setBath(list.get(i).getBath());
+//			spot.setRoadtrain(list.get(i).getRoadtrain());
+//			spot.setLongitude(list.get(i).getLongitude());
+//			spot.setLatitude(list.get(i).getLatitude());
+//			spot.setName(list.get(i).getName());
+//			spot.setLastUpdated(list.get(i).getLastUpdated());
+//			spot.setDeleted(list.get(i).getDeleted());
 		
-		
-		
-		Client client = ClientBuilder.newClient();
-		
-//		Request req = client.target("http://posttestserver.com/data/").request(MediaType.APPLICATION_JSON).post(list);
-		
+			Client client = ClientBuilder.newClient();
+			Response res = client.target("http://localhost:8080/ConvoyServer/webresources/convoy/edit/spot").request(MediaType.APPLICATION_JSON).put(Entity.entity(ja, MediaType.APPLICATION_JSON));
+			String resultString = res.readEntity(String.class);
+			System.out.println(resultString);
 		
 	}
 	
