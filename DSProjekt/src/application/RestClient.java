@@ -52,7 +52,7 @@ public class RestClient {
 		for (int i = 0; i < ja.length(); i++) {
 			jo = ja.getJSONObject(i);
 			Spot spot = new Spot(jo.getInt("id"),jo.getBoolean("addBlue"),jo.getBoolean("food"),jo.getBoolean("wc"),
-					jo.getBoolean("bed"),jo.getBoolean("bath"),jo.getBoolean("roadtrain"), Float.parseFloat(Double.toString(jo.getDouble("longitude"))), Float.parseFloat(Double.toString(jo.getDouble("latitude"))),
+					jo.getBoolean("bed"),jo.getBoolean("bath"),jo.getBoolean("fuel"),jo.getBoolean("roadtrain"), Float.parseFloat(Double.toString(jo.getDouble("longitude"))), Float.parseFloat(Double.toString(jo.getDouble("latitude"))),
 					jo.getString("name"), jo.getLong("lastUpdated"), jo.getBoolean("deleted"));
 			spots.add(spot);
 		}

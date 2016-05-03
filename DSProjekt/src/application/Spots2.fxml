@@ -15,6 +15,7 @@
             <TableColumn fx:id="wcCol" prefWidth="93.72377014160156" text="wc" />
             <TableColumn fx:id="bedCol" prefWidth="77.06210327148438" text="bed" />
             <TableColumn fx:id="bathCol" prefWidth="75.91436767578125" text="bath" />
+            <TableColumn fx:id="fuelCol" prefWidth="75.0" text="fuel" />
             <TableColumn fx:id="roadtrainCol" prefWidth="87.0855712890625" text="roadtrain" />
             <TableColumn fx:id="longCol" prefWidth="92.7044677734375" text="longitude" />
             <TableColumn fx:id="latCol" prefWidth="93.5567626953125" text="latitude" />
@@ -24,25 +25,27 @@
             <TableColumn fx:id="retCol" prefWidth="89.0" text="Ret" />
         </columns>
       </TableView>
-      <Button fx:id="addSpot_btn" layoutX="131.0" layoutY="769.0" mnemonicParsing="false" onAction="#addSpotAction" prefHeight="27.0" prefWidth="167.0" text="Tilføj Spot" />
+      <Button fx:id="addSpot_btn" layoutX="131.0" layoutY="793.0" mnemonicParsing="false" onAction="#addSpotAction" prefHeight="27.0" prefWidth="167.0" text="Tilføj Spot" />
       <Label layoutX="45.0" layoutY="524.0" text="Add Blue:" />
       <Label layoutX="75.0" layoutY="551.0" text="Food:" />
       <Label layoutX="79.0" layoutY="579.0" text="WC:" />
       <Label layoutX="79.0" layoutY="610.0" text="Bed:" />
       <Label layoutX="77.0" layoutY="636.0" text="Bath:" />
-      <Label layoutX="46.0" layoutY="664.0" text="Roadtrain:" />
+      <Label layoutX="46.0" layoutY="686.0" text="Roadtrain:" />
       <Label layoutX="64.0" layoutY="498.0" text="Name:" />
-      <Label layoutX="42.0" layoutY="699.0" text="Longitude:" />
-      <Label layoutX="52.0" layoutY="729.0" text="Latitude:" />
+      <Label layoutX="42.0" layoutY="716.0" text="Longitude:" />
+      <Label layoutX="52.0" layoutY="755.0" text="Latitude:" />
       <TextField fx:id="name_text" layoutX="131.0" layoutY="493.0" />
       <CheckBox fx:id="addBlueCheck" layoutX="131.0" layoutY="524.0" mnemonicParsing="false" />
       <CheckBox fx:id="foodCheck" layoutX="131.0" layoutY="551.0" mnemonicParsing="false" />
       <CheckBox fx:id="wcCheck" layoutX="131.0" layoutY="578.0" mnemonicParsing="false" />
       <CheckBox fx:id="bedCheck" layoutX="131.0" layoutY="608.0" mnemonicParsing="false" />
       <CheckBox fx:id="bathCheck" layoutX="131.0" layoutY="635.0" mnemonicParsing="false" />
-      <CheckBox fx:id="roadtrainCheck" layoutX="131.0" layoutY="664.0" mnemonicParsing="false" />
-      <TextField fx:id="long_text" layoutX="131.0" layoutY="694.0" />
-      <TextField fx:id="lat_text" layoutX="131.0" layoutY="724.0" />
+      <CheckBox fx:id="roadtrainCheck" layoutX="131.0" layoutY="687.0" mnemonicParsing="false" />
+      <TextField fx:id="long_text" layoutX="131.0" layoutY="714.0" />
+      <TextField fx:id="lat_text" layoutX="131.0" layoutY="751.0" />
       <Button fx:id="gem_btn" layoutX="868.0" layoutY="480.0" mnemonicParsing="false" onAction="#gemAction" text="Gem" />
+      <CheckBox fx:id="fuelCheck" layoutX="131.0" layoutY="660.0" mnemonicParsing="false" />
+      <Label layoutX="58.0" layoutY="661.0" text="Fuel:" />
    </children>
 </AnchorPane>

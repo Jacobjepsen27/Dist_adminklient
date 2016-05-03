@@ -72,6 +72,9 @@ public class TableController implements Initializable{
 
 	@FXML
 	private CheckBox foodCheck;
+	
+	@FXML
+	private CheckBox fuelCheck;
 
 	@FXML
 	private Button addSpot_btn;
@@ -117,6 +120,9 @@ public class TableController implements Initializable{
 
 	@FXML
 	private TableColumn<PSpot, Boolean> delCol;
+	
+	@FXML
+	private TableColumn<PSpot, Boolean> fuelCol;
 	
 	@FXML
 	private TableColumn retCol;
@@ -233,6 +239,21 @@ public class TableController implements Initializable{
 							t.getTablePosition().getRow())
 							).setBath(t.getNewValue());
 				});
+		
+		fuelCol.setCellValueFactory(
+				new Callback<CellDataFeatures<PSpot,Boolean>,ObservableValue<Boolean>>()
+				{
+					public ObservableValue<Boolean> call(CellDataFeatures<PSpot, Boolean> param) {
+						return param.getValue().getFuel();
+					}   
+				});
+		fuelCol.setCellFactory(CheckBoxTableCell.<PSpot>forTableColumn(fuelCol));
+		fuelCol.setOnEditCommit(
+				(CellEditEvent<PSpot, Boolean> t) -> {
+					((PSpot) t.getTableView().getItems().get(
+							t.getTablePosition().getRow())
+							).setFuel(t.getNewValue());
+				});
 
 		roadtrainCol.setPrefWidth(70);
 		roadtrainCol.setCellValueFactory(
@@ -304,8 +325,7 @@ public class TableController implements Initializable{
 
 	@FXML
 	private void addSpotAction(ActionEvent event) throws IOException{	
-//		data.add(new Spot(0,addBlueCheck.isSelected(), foodCheck.isSelected(), wcCheck.isSelected(), bedCheck.isSelected(), bathCheck.isSelected(), roadtrainCheck.isSelected(), Float.parseFloat(long_text.getText()), Float.parseFloat(lat_text.getText()), name_text.getText(), System.currentTimeMillis(), false));
-		Spot spot = new Spot(0,addBlueCheck.isSelected(), foodCheck.isSelected(), wcCheck.isSelected(), bedCheck.isSelected(), bathCheck.isSelected(), roadtrainCheck.isSelected(), Float.parseFloat(long_text.getText()), Float.parseFloat(lat_text.getText()), name_text.getText(), System.currentTimeMillis(), false);
+		Spot spot = new Spot(0,addBlueCheck.isSelected(), foodCheck.isSelected(), wcCheck.isSelected(), bedCheck.isSelected(), bathCheck.isSelected(), fuelCheck.isSelected(),roadtrainCheck.isSelected(), Float.parseFloat(long_text.getText()), Float.parseFloat(lat_text.getText()), name_text.getText(), System.currentTimeMillis(), false);
 		rc.saveNewSpotToServer(spot);
 	}
 

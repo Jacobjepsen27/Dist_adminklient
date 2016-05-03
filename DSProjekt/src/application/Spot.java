@@ -2,19 +2,20 @@ package application;
 
 public class Spot {
 	
-	private boolean addBlue, food, wc, bed, bath, roadtrain, deleted;
+	private boolean addBlue, food, wc, bed, bath, roadtrain, deleted, fuel;
     private float longitude, latitude;
     private String name;
     private long lastUpdated;
     private int id;
 	
-	public Spot(int id, boolean addBlue, boolean food, boolean wc, boolean bed, boolean bath, boolean roadtrain, float longitude, float latitude, String name, long lastUpdated, boolean deleted){
+	public Spot(int id, boolean addBlue, boolean food, boolean wc, boolean bed, boolean bath, boolean fuel, boolean roadtrain, float longitude, float latitude, String name, long lastUpdated, boolean deleted){
 		this.id = id;
         this.addBlue = addBlue;
         this.food = food;
         this.wc = wc;
         this.bed = bed;
         this.bath = bath;
+        this.fuel = fuel;
         this.roadtrain = roadtrain;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -62,6 +63,12 @@ public class Spot {
 	}
 	public void setBath(boolean b){
 		bath=b;
+	}
+	public boolean getFuel(){
+		return fuel;
+	}
+	public void setFuel(boolean b){
+		fuel=b;
 	}
 	public boolean getRoadtrain(){
 		return roadtrain;
