@@ -42,9 +42,9 @@ import javafx.util.converter.NumberStringConverter;
 public class TableController implements Initializable{
 	
 	public HashMap<Integer,Object> map = new HashMap<Integer,Object>();
-	public ArrayList<PSpot> saveSpot = new ArrayList<PSpot>();
 	public PSpot spot;
 	public RestClient rc = new RestClient();
+	public String token=null;
 
 	@FXML
 	private TextField name_text;
@@ -327,13 +327,14 @@ public class TableController implements Initializable{
 	private void addSpotAction(ActionEvent event) throws IOException{	
 		Spot spot = new Spot(0,addBlueCheck.isSelected(), foodCheck.isSelected(), wcCheck.isSelected(), bedCheck.isSelected(), bathCheck.isSelected(), fuelCheck.isSelected(),roadtrainCheck.isSelected(), Float.parseFloat(long_text.getText()), Float.parseFloat(lat_text.getText()), name_text.getText(), System.currentTimeMillis(), false);
 		rc.saveNewSpotToServer(spot);
+		setObservableData(ParseArray.Spot2PSpot(rc.hentJsonFraServer()));
 	}
 
 	@FXML
 	private void gemAction(ActionEvent event){
-		
 		//Spots der hentes fra server og sættes som dataArray
 		ArrayList<Spot> nyeSpots = new ArrayList<Spot>();
+		ArrayList<PSpot> saveSpot = new ArrayList<PSpot>();
 		
 		//Nedenstående kode finder spots der er rettet i:
 		HashMap<Integer,PSpot> map2 = new HashMap<Integer,PSpot>();
@@ -349,7 +350,8 @@ public class TableController implements Initializable{
 		
 		//Laver RestClient objekt
 //		RestClient rc = new RestClient();
-		setObservableData(rc.saveChangedSpots(saveSpot));
+		map.clear();
+		setObservableData(rc.saveChangedSpots(saveSpot, token));
 	}
 
 	public void setObservableData(ArrayList<PSpot> list){
@@ -368,6 +370,14 @@ public class TableController implements Initializable{
 	public void rettedeSpots(int id){
 //		int[] tal = new int[data.size()+1];
 		map.put(id,null);
+	}
+	
+	public void setToken(String token){
+		this.token=token;
+	}
+	
+	public String getToken(){
+		return this.token;
 	}
 
 }

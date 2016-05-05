@@ -31,7 +31,6 @@ public class SampleController {
 	public ArrayList<PSpot> PSpots = new ArrayList<PSpot>();
 	public ArrayList<Spot> Spots = new ArrayList<Spot>();
 	
-
 	private Stage currentStage;
 	private Connection con = new Connection();
 
@@ -84,19 +83,16 @@ public class SampleController {
 	
 	//**************************************************
 	
+	RestClient rc = new RestClient();
+	
 	@FXML
 	void loginAdmin(ActionEvent event) throws Exception {
-		//Hvis brugerlogin lykkedes
-//		if(getUser(username_text.getText(),pass_text.getText())){
-//			loadTestSpots();
-//			createTableView();
-//		}
-		//test login
-		if(true){
+//		String token = rc.login(username_text.getText(), pass_text.getText());
+		String token = rc.login("s144875", "43polser");
+		if(!token.equals("Bruger findes ikke på serveren eller password er forkert")){
 			loadTestSpotsFromTestServer();
-//			loadTestSpots();
-			createTableView();
-		}
+			createTableView(token);
+			}
 	}
 
 	//Gemmer den nuværende scene
@@ -116,7 +112,6 @@ public class SampleController {
 	}
 	
 	public void loadTestSpotsFromTestServer(){
-		RestClient rc = new RestClient();
 		Spots = rc.hentJsonFraServer();
 		for(Spot s: Spots){
 			PSpots.add(new PSpot(s.getId(),s.getAddBlue(),s.getFood(),s.getWc(),s.getBed(),s.getBath(), s.getFuel(),s.getRoadtrain(),s.getLongitude(),s.getLatitude()
@@ -144,12 +139,13 @@ public class SampleController {
 		
 	}
 
-	public void createTableView() throws IOException{
+	public void createTableView(String token) throws IOException{
 		Stage stage = new Stage();
 		FXMLLoader myLoader = new FXMLLoader(getClass().getResource("Spots2.fxml"));
 		AnchorPane myPane = (AnchorPane)myLoader.load();
 		TableController controller = (TableController) myLoader.getController();
 		controller.setCurrentStage(stage);
+		controller.setToken(token);
 		controller.setObservableData(PSpots);
 		Scene scene = new Scene(myPane,1100,800);
 		currentStage.close();

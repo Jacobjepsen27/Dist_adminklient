@@ -23,6 +23,7 @@ import com.sun.research.ws.wadl.Request;
 public class RestClient {
 	
 	public Gson gson = new Gson();
+	
 
 	public  ArrayList<Spot> hentJsonFraServer(){ 
 		Client client = ClientBuilder.newClient();
@@ -59,7 +60,7 @@ public class RestClient {
 		return spots;
 	}
 	
-	public ArrayList<PSpot> saveChangedSpots(ArrayList<PSpot> ps){
+	public ArrayList<PSpot> saveChangedSpots(ArrayList<PSpot> ps, String token){
 		ArrayList<Spot> list = new ArrayList<Spot>();
 		ArrayList<PSpot> list2 = new ArrayList<PSpot>();
 		//MÅ IKKE SLETTES; ER EN DEL AF PARSEARRAY
@@ -79,7 +80,7 @@ public class RestClient {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		saveChangedSpotsToServer(list);
+		saveChangedSpotsToServer(list, token);
 		list = hentJsonFraServer();
 //		for(int i=0; i<list.size(); i++){
 //			list2.add(new PSpot(list.get(i).getId(), list.get(i).getAddBlue(), list.get(i).getFood(), list.get(i).getWc(), list.get(i).getBed(),
@@ -95,34 +96,31 @@ public class RestClient {
 		Client client = ClientBuilder.newClient();
 		Response res = client.target("http://localhost:8080/ConvoyServer/webresources/convoy/create/spot").request(MediaType.APPLICATION_JSON).post(Entity.entity(input, MediaType.APPLICATION_JSON));
 		String resultString = res.readEntity(String.class);
-		
-		System.out.println(resultString);
 	}
 	
-	private void saveChangedSpotsToServer(ArrayList<Spot> list){
-
-		System.out.println("liste størrelse i rest: "+list.size());
-		String input = gson.toJson(list);
+	private void saveChangedSpotsToServer(ArrayList<Spot> list, String token){
+		System.out.println("liste størrelse i restclient savechanged to server: "+list.size());
 		
-		Client client = ClientBuilder.newClient();
-		Response res = client.target("http://localhost:8080/ConvoyServer/webresources/convoy/edit/spot").request(MediaType.APPLICATION_JSON).put(Entity.entity(input, MediaType.APPLICATION_JSON));
-		String resultString = res.readEntity(String.class);
-		
-		System.out.println(resultString);
-		
+		Spot tempSpot;
+		String input=null;
+		for (Spot spot : list) {
+//			tempSpot = spot;
+//			input = gson.toJson(tempSpot);
+			PutContainer pc = new PutContainer(spot,token);
+			input = gson.toJson(pc);
+			Client client = ClientBuilder.newClient();
+			Response res = client.target("http://localhost:8080/ConvoyServer/webresources/convoy/edit/spot").request(MediaType.APPLICATION_JSON).put(Entity.entity(input, MediaType.APPLICATION_JSON));
+			String resultString = res.readEntity(String.class);
+		}
 	}
-//	for(int i=0; i<list.size();i++){
-//	Spot spot = new Spot();
-//	spot.setId(list.get(i).getId());
-//	spot.setAddBlue(list.get(i).getAddBlue());
-//	spot.setFood(list.get(i).getFood());
-//	spot.setWc(list.get(i).getWc());
-//	spot.setBed(list.get(i).getBed());
-//	spot.setBath(list.get(i).getBath());
-//	spot.setRoadtrain(list.get(i).getRoadtrain());
-//	spot.setLongitude(list.get(i).getLongitude());
-//	spot.setLatitude(list.get(i).getLatitude());
-//	spot.setName(list.get(i).getName());
-//	spot.setLastUpdated(list.get(i).getLastUpdated());
-//	spot.setDeleted(list.get(i).getDeleted());
+	
+	public String login(String username, String password){
+		System.out.println(username);
+		System.out.println(password);
+		Client client = ClientBuilder.newClient();
+		Response res = client.target("http://localhost:8080/ConvoyServer/webresources/convoy/get_user/"+"?name="+username+"&pass="+password).request(MediaType.APPLICATION_JSON).get();
+		String token = res.readEntity(String.class);
+		return token;
+	}
+	
 }
