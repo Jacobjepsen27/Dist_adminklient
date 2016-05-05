@@ -1,5 +1,6 @@
 package application;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -8,8 +9,11 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import org.json.JSONException;
+
 import com.sun.prism.impl.Disposer.Record;
 
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -17,6 +21,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,6 +30,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -34,20 +40,27 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.converter.NumberStringConverter;
 
 public class TableController implements Initializable{
-	
+
 	public HashMap<Integer,Object> map = new HashMap<Integer,Object>();
 	public PSpot spot;
 	public RestClient rc = new RestClient();
 	public String token=null;
+	AddressCompleter ac = new AddressCompleter();
 
 	@FXML
 	private TextField name_text;
+
+	@FXML
+	private ListView suggestions;
 
 	@FXML
 	private TextField long_text;
@@ -72,7 +85,7 @@ public class TableController implements Initializable{
 
 	@FXML
 	private CheckBox foodCheck;
-	
+
 	@FXML
 	private CheckBox fuelCheck;
 
@@ -120,10 +133,10 @@ public class TableController implements Initializable{
 
 	@FXML
 	private TableColumn<PSpot, Boolean> delCol;
-	
+
 	@FXML
 	private TableColumn<PSpot, Boolean> fuelCol;
-	
+
 	@FXML
 	private TableColumn retCol;
 
@@ -150,13 +163,13 @@ public class TableController implements Initializable{
 		// TODO Auto-generated method stub
 
 		tableViewId.setEditable(true);
-		
-//		tableViewId.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-//		    if (newSelection != null) {
-//		        System.out.println(tableViewId.getSelectionModel().getSelectedIndex());
-//		    }
-//		});
-		
+
+		//		tableViewId.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+		//		    if (newSelection != null) {
+		//		        System.out.println(tableViewId.getSelectionModel().getSelectedIndex());
+		//		    }
+		//		});
+
 		idCol.setPrefWidth(25);
 		idCol.setCellValueFactory(new PropertyValueFactory<PSpot,Integer>("id"));
 
@@ -239,7 +252,7 @@ public class TableController implements Initializable{
 							t.getTablePosition().getRow())
 							).setBath(t.getNewValue());
 				});
-		
+
 		fuelCol.setCellValueFactory(
 				new Callback<CellDataFeatures<PSpot,Boolean>,ObservableValue<Boolean>>()
 				{
@@ -285,7 +298,7 @@ public class TableController implements Initializable{
 		updCol.setPrefWidth(125);
 		updCol.setCellValueFactory(new PropertyValueFactory<PSpot,Long>("lastUpdated"));
 
-		
+
 		delCol.setCellValueFactory(
 				new Callback<CellDataFeatures<PSpot,Boolean>,ObservableValue<Boolean>>()
 				{
@@ -294,33 +307,77 @@ public class TableController implements Initializable{
 					}   
 				});
 		delCol.setCellFactory(CheckBoxTableCell.<PSpot>forTableColumn(delCol));
-//		delCol.setCellFactory(col -> {
-//            CheckBoxTableCell<Spot, Boolean> cell = new CheckBoxTableCell<>(index -> {
-//                BooleanProperty active = new SimpleBooleanProperty();
-//                active.addListener((obs, wasActive, isNowActive) -> {
-//                	System.out.println("del");
-//                	rettedeSpots(tableViewId.getItems().get(index).getId());
-//                });
-//                return active ;
-//            });
-//            return cell ;
-//        });
-		
-//		retCol.setCellFactory(CheckBoxTableCell.<Spot>forTableColumn(null));
+		//		delCol.setCellFactory(col -> {
+		//            CheckBoxTableCell<Spot, Boolean> cell = new CheckBoxTableCell<>(index -> {
+		//                BooleanProperty active = new SimpleBooleanProperty();
+		//                active.addListener((obs, wasActive, isNowActive) -> {
+		//                	System.out.println("del");
+		//                	rettedeSpots(tableViewId.getItems().get(index).getId());
+		//                });
+		//                return active ;
+		//            });
+		//            return cell ;
+		//        });
+
+		//		retCol.setCellFactory(CheckBoxTableCell.<Spot>forTableColumn(null));
 
 		retCol.setCellFactory(col -> {
-          CheckBoxTableCell cell = new CheckBoxTableCell<>(index -> {
-              BooleanProperty active = new SimpleBooleanProperty();
-              active.addListener((obs, wasActive, isNowActive) -> {
-              	System.out.println("ret "+ tableViewId.getItems().get(index).getId());
-              	rettedeSpots(tableViewId.getItems().get(index).getId());
-              });
-              return active ;
-          });
-          return cell ;
-      });
-		
+			CheckBoxTableCell cell = new CheckBoxTableCell<>(index -> {
+				BooleanProperty active = new SimpleBooleanProperty();
+				active.addListener((obs, wasActive, isNowActive) -> {
+					System.out.println("ret "+ tableViewId.getItems().get(index).getId());
+					rettedeSpots(tableViewId.getItems().get(index).getId());
+				});
+				return active ;
+			});
+			return cell ;
+		});
+
 		tableViewId.setItems(data);
+	}
+
+	@FXML
+	void getAddresses(KeyEvent event) throws JSONException {
+		if(event.getCode() != KeyCode.ENTER){
+			if(name_text.getText().length() > 3){
+				Task<Void> task = new Task<Void>(){
+
+					@Override
+					protected Void call() throws Exception {
+						final ObservableList<String> ol = FXCollections.observableArrayList(ac.getAddresses(name_text.getText()));
+						
+						Platform.runLater(()  -> {
+							suggestions.getItems().clear();
+							suggestions.setVisible(true);
+							suggestions.getItems().addAll(ol);
+							foodCheck.setVisible(false);
+							addBlueCheck.setVisible(false);
+							wcCheck.setVisible(false);
+							fuelCheck.setVisible(false);
+							bedCheck.setVisible(false);
+							bathCheck.setVisible(false);
+							roadtrainCheck.setVisible(false);
+							long_text.setVisible(false);
+							lat_text.setVisible(false);
+
+
+						});
+						return null;
+					}
+				};
+				new Thread(task).start();
+			}
+		}
+		if(event.getCode() == KeyCode.ENTER){
+			fillLatAndLong();
+			
+		}
+	}
+
+	@FXML
+	void picksAddress(MouseEvent event) throws JSONException {
+	name_text.setText((String)suggestions.getSelectionModel().getSelectedItem());
+	fillLatAndLong();
 	}
 
 	@FXML
@@ -335,7 +392,7 @@ public class TableController implements Initializable{
 		//Spots der hentes fra server og sættes som dataArray
 		ArrayList<Spot> nyeSpots = new ArrayList<Spot>();
 		ArrayList<PSpot> saveSpot = new ArrayList<PSpot>();
-		
+
 		//Nedenstående kode finder spots der er rettet i:
 		HashMap<Integer,PSpot> map2 = new HashMap<Integer,PSpot>();
 		for (PSpot spot : data) {
@@ -347,9 +404,9 @@ public class TableController implements Initializable{
 			int key = (Integer) object;
 			saveSpot.add(map2.get(key));
 		}
-		
+
 		//Laver RestClient objekt
-//		RestClient rc = new RestClient();
+		//		RestClient rc = new RestClient();
 		map.clear();
 		setObservableData(rc.saveChangedSpots(saveSpot, token));
 	}
@@ -359,25 +416,40 @@ public class TableController implements Initializable{
 		for(int i=0; i<list.size();i++){
 			data.add(list.get(i));
 		}
-//		System.out.println(data.get(0).getAddBlue());
+		//		System.out.println(data.get(0).getAddBlue());
 	}
 
 	//Gemmer den nuværende scene
 	public void setCurrentStage(Stage stage){
 		this.currentStage = stage;
 	}
-	
+
 	public void rettedeSpots(int id){
-//		int[] tal = new int[data.size()+1];
+		//		int[] tal = new int[data.size()+1];
 		map.put(id,null);
 	}
-	
+
 	public void setToken(String token){
 		this.token=token;
 	}
-	
+
 	public String getToken(){
 		return this.token;
+	}
+
+	private void fillLatAndLong() throws JSONException{
+		foodCheck.setVisible(true);
+		addBlueCheck.setVisible(true);
+		wcCheck.setVisible(true);
+		bedCheck.setVisible(true);
+		bathCheck.setVisible(true);
+		roadtrainCheck.setVisible(true);
+		fuelCheck.setVisible(true);
+		long_text.setVisible(true);
+		lat_text.setVisible(true);
+		lat_text.setText((Double)ac.getGeoLocation(name_text.getText())[1]+"");
+		long_text.setText((Double)ac.getGeoLocation(name_text.getText())[0]+"");
+		suggestions.setVisible(false);
 	}
 
 }

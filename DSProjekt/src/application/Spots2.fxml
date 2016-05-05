@@ -35,7 +35,8 @@
       <Label layoutX="64.0" layoutY="498.0" text="Name:" />
       <Label layoutX="42.0" layoutY="716.0" text="Longitude:" />
       <Label layoutX="52.0" layoutY="755.0" text="Latitude:" />
-      <TextField fx:id="name_text" layoutX="131.0" layoutY="493.0" />
+      <TextField fx:id="name_text" layoutX="131.0" layoutY="493.0" onKeyReleased="#getAddresses" prefHeight="25.0" prefWidth="248.0" />
+      <ListView fx:id="suggestions" layoutX="131.0" layoutY="524.0" onMousePressed="#picksAddress" visible="false" />
       <CheckBox fx:id="addBlueCheck" layoutX="131.0" layoutY="524.0" mnemonicParsing="false" />
       <CheckBox fx:id="foodCheck" layoutX="131.0" layoutY="551.0" mnemonicParsing="false" />
       <CheckBox fx:id="wcCheck" layoutX="131.0" layoutY="578.0" mnemonicParsing="false" />
