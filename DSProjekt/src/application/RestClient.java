@@ -27,6 +27,8 @@ import com.sun.research.ws.wadl.Request;
 public class RestClient {
 
 	public Gson gson = new Gson();
+	
+	private String hostname = "http://localhost:8080/ConvoyServer/webresources/convoy/";
  
 	// Gemmer søgningerne fra dawa i denne streng, så der ikke skal søges igen når man vil have geolokationen
 	private String adresseCache = null;
@@ -35,7 +37,7 @@ public class RestClient {
 		Client client = ClientBuilder.newClient();
 
 		//Kalder GET - get() på target og accepterer JSON
-		Response res = client.target("http://localhost:8080/ConvoyServer/webresources/convoy/get_all").request(MediaType.APPLICATION_JSON).get();
+		Response res = client.target(hostname +"get_all").request(MediaType.APPLICATION_JSON).get();
 
 		//Sætter svaret til at være en string
 		String resultString = res.readEntity(String.class);
@@ -102,7 +104,7 @@ public class RestClient {
 	public void saveNewSpotToServer(Spot s){
 		String input = gson.toJson(s);
 		Client client = ClientBuilder.newClient();
-		Response res = client.target("http://localhost:8080/ConvoyServer/webresources/convoy/create/spot").request(MediaType.APPLICATION_JSON).post(Entity.entity(input, MediaType.APPLICATION_JSON));
+		Response res = client.target(hostname + "create/spot").request(MediaType.APPLICATION_JSON).post(Entity.entity(input, MediaType.APPLICATION_JSON));
 		String resultString = res.readEntity(String.class);
 	}
 
@@ -117,7 +119,7 @@ public class RestClient {
 			PutContainer pc = new PutContainer(spot,token);
 			input = gson.toJson(pc);
 			Client client = ClientBuilder.newClient();
-			Response res = client.target("http://localhost:8080/ConvoyServer/webresources/convoy/edit/spot").request(MediaType.APPLICATION_JSON).put(Entity.entity(input, MediaType.APPLICATION_JSON));
+			Response res = client.target(hostname + "edit/spot").request(MediaType.APPLICATION_JSON).put(Entity.entity(input, MediaType.APPLICATION_JSON));
 			String resultString = res.readEntity(String.class);
 		}
 	}
@@ -126,7 +128,7 @@ public class RestClient {
 		System.out.println(username);
 		System.out.println(password);
 		Client client = ClientBuilder.newClient();
-		Response res = client.target("http://localhost:8080/ConvoyServer/webresources/convoy/get_user/"+"?name="+username+"&pass="+password).request(MediaType.APPLICATION_JSON).get();
+		Response res = client.target(hostname + "get_user/"+"?name="+username+"&pass="+password).request(MediaType.APPLICATION_JSON).get();
 		String token = res.readEntity(String.class);
 		return token;
 	}
@@ -137,11 +139,11 @@ public class RestClient {
 			//Sørger for at mellemrum, æøå osv, kan sendes til REST serveren
 			query = URLEncoder.encode(query, "UTF-8");
 		} catch (UnsupportedEncodingException ex) {
-			Logger.getLogger(AddressCompleter.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(RestClient.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
 		//Kalder GET - get() på target og accepterer JSON
-		Response res = client.target("http://localhost:8080/ConvoyServer/webresources/convoy/get_dawa/"+query).request(MediaType.APPLICATION_JSON).get();
+		Response res = client.target(hostname +"get_dawa/"+query).request(MediaType.APPLICATION_JSON).get();
 
 		//Sætter svaret til at være en string
 		String resultString = res.readEntity(String.class);
