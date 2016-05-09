@@ -87,8 +87,8 @@ public class SampleController {
 	
 	@FXML
 	void loginAdmin(ActionEvent event) throws Exception {
-//		String token = rc.login(username_text.getText(), pass_text.getText());
-		String token = rc.login("s144875", "43polser");
+		String token = rc.login(username_text.getText(), pass_text.getText());
+//		String token = rc.login("s144875", "43polser");
 		if(!token.equals("Bruger findes ikke på serveren eller password er forkert")){
 			loadTestSpotsFromTestServer();
 			createTableView(token);

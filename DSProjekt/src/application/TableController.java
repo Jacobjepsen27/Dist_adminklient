@@ -54,7 +54,8 @@ public class TableController implements Initializable{
 	public PSpot spot;
 	public RestClient rc = new RestClient();
 	public String token=null;
-	AddressCompleter ac = new AddressCompleter();
+	private Adresse adresse;
+
 
 	@FXML
 	private TextField name_text;
@@ -344,7 +345,7 @@ public class TableController implements Initializable{
 
 					@Override
 					protected Void call() throws Exception {
-						final ObservableList<String> ol = FXCollections.observableArrayList(ac.getAddresses(name_text.getText()));
+						final ObservableList<Adresse> ol = FXCollections.observableArrayList(rc.getAddresses(name_text.getText()));
 						
 						Platform.runLater(()  -> {
 							suggestions.getItems().clear();
@@ -369,15 +370,15 @@ public class TableController implements Initializable{
 			}
 		}
 		if(event.getCode() == KeyCode.ENTER){
-			fillLatAndLong();
+			fillNameLatAndLong();
 			
 		}
 	}
 
 	@FXML
 	void picksAddress(MouseEvent event) throws JSONException {
-	name_text.setText((String)suggestions.getSelectionModel().getSelectedItem());
-	fillLatAndLong();
+	adresse = (Adresse)suggestions.getSelectionModel().getSelectedItem();
+	fillNameLatAndLong();
 	}
 
 	@FXML
@@ -437,7 +438,8 @@ public class TableController implements Initializable{
 		return this.token;
 	}
 
-	private void fillLatAndLong() throws JSONException{
+	private void fillNameLatAndLong() throws JSONException{
+		name_text.setText(adresse.getName());
 		foodCheck.setVisible(true);
 		addBlueCheck.setVisible(true);
 		wcCheck.setVisible(true);
@@ -447,8 +449,8 @@ public class TableController implements Initializable{
 		fuelCheck.setVisible(true);
 		long_text.setVisible(true);
 		lat_text.setVisible(true);
-		lat_text.setText((Double)ac.getGeoLocation(name_text.getText())[1]+"");
-		long_text.setText((Double)ac.getGeoLocation(name_text.getText())[0]+"");
+		lat_text.setText(adresse.getLatitude()+"");
+		long_text.setText(adresse.getLongtitude()+"");
 		suggestions.setVisible(false);
 	}
 
