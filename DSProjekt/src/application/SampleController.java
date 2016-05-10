@@ -147,7 +147,7 @@ public class SampleController {
 		controller.setCurrentStage(stage);
 		controller.setToken(token);
 		controller.setObservableData(PSpots);
-		Scene scene = new Scene(myPane,1100,800);
+		Scene scene = new Scene(myPane,1250,800);
 		currentStage.close();
 		setCurrentStage(stage);
 		stage.setScene(scene);

@@ -29,7 +29,7 @@ public class RestClient {
 	public Gson gson = new Gson();
 	
 //	private String hostname = "http://localhost:8080/ConvoyServer/webresources/convoy/";
-	private String hostname = "http://default-environment.m2ypbqk78s.us-west-2.elasticbeanstalk.com/webresources/convoy/";
+	private String hostname = "http://default-environment.xyik5z2rn3.eu-central-1.elasticbeanstalk.com/webresources/convoy/";
  
 	// Gemmer søgningerne fra dawa i denne streng, så der ikke skal søges igen når man vil have geolokationen
 	private String adresseCache = null;
