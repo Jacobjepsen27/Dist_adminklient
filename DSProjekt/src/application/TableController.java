@@ -308,25 +308,12 @@ public class TableController implements Initializable{
 					}   
 				});
 		delCol.setCellFactory(CheckBoxTableCell.<PSpot>forTableColumn(delCol));
-		//		delCol.setCellFactory(col -> {
-		//            CheckBoxTableCell<Spot, Boolean> cell = new CheckBoxTableCell<>(index -> {
-		//                BooleanProperty active = new SimpleBooleanProperty();
-		//                active.addListener((obs, wasActive, isNowActive) -> {
-		//                	System.out.println("del");
-		//                	rettedeSpots(tableViewId.getItems().get(index).getId());
-		//                });
-		//                return active ;
-		//            });
-		//            return cell ;
-		//        });
-
-		//		retCol.setCellFactory(CheckBoxTableCell.<Spot>forTableColumn(null));
+	
 
 		retCol.setCellFactory(col -> {
 			CheckBoxTableCell cell = new CheckBoxTableCell<>(index -> {
 				BooleanProperty active = new SimpleBooleanProperty();
 				active.addListener((obs, wasActive, isNowActive) -> {
-//					System.out.println("ret "+ tableViewId.getItems().get(index).getId());
 					rettedeSpots(tableViewId.getItems().get(index).getId());
 				});
 				return active ;
@@ -417,7 +404,6 @@ public class TableController implements Initializable{
 		for(int i=0; i<list.size();i++){
 			data.add(list.get(i));
 		}
-		//		System.out.println(data.get(0).getAddBlue());
 	}
 
 	//Gemmer den nuværende scene
@@ -426,7 +412,6 @@ public class TableController implements Initializable{
 	}
 
 	public void rettedeSpots(int id){
-		//		int[] tal = new int[data.size()+1];
 		map.put(id,null);
 	}
 

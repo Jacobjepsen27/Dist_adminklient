@@ -1,28 +1,14 @@
 package application;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-
-import brugerautorisation.transport.soap.Connection;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -32,15 +18,7 @@ public class SampleController {
 	public ArrayList<Spot> Spots = new ArrayList<Spot>();
 	
 	private Stage currentStage;
-	private Connection con = new Connection();
 
-//	@FXML
-//	private AnchorPane AnchorPane1;
-//
-//	@FXML
-//	private TableView<Spot> tableView;
-
-	//************** Login Attributter *****************
 	@FXML
 	private TextField pass_text;
 
@@ -49,46 +27,12 @@ public class SampleController {
 
 	@FXML
 	private TextField username_text;
-
-	//**************************************************
-	
-	//************** TableView Attributter *************
-	
-//	@FXML
-//	private TableView<Spot> tableViewId;
-//	@FXML
-//	private TableColumn<Spot,Integer> idCol;
-//	@FXML
-//	private TableColumn<Spot,Boolean> addBlueCol;
-//	@FXML
-//	private TableColumn<Spot,Boolean> foodCol;
-//	@FXML
-//	private TableColumn<Spot,Boolean> wcCol;
-//	@FXML
-//	private TableColumn<Spot,Boolean> bedCol;
-//	@FXML
-//	private TableColumn<Spot,Boolean> bathCol;
-//	@FXML
-//	private TableColumn<Spot,Boolean> roadtrainCol;
-//	@FXML
-//	private TableColumn<Spot,Float> longCol;
-//	@FXML
-//	private TableColumn<Spot,Float> latCol;
-//	@FXML
-//	private TableColumn<Spot,String> nameCol;
-//	@FXML
-//	private TableColumn<Spot,Long> updCol;
-	
-	
-	
-	//**************************************************
 	
 	RestClient rc = new RestClient();
 	
 	@FXML
 	void loginAdmin(ActionEvent event) throws Exception {
 		String token = rc.login(username_text.getText(), pass_text.getText());
-//		String token = rc.login("s144875", "43polser");
 		if(!token.equals("Bruger findes ikke på serveren eller password er forkert")){
 			loadTestSpotsFromTestServer();
 			createTableView(token);
@@ -99,17 +43,6 @@ public class SampleController {
 	public void setCurrentStage(Stage stage){
 		this.currentStage = stage;
 	}
-
-	public Boolean getUser(String un, String ps){
-		try {
-			con.getUser(un,ps);
-			return true;
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
-	}
 	
 	public void loadTestSpotsFromTestServer(){
 		Spots = rc.hentJsonFraServer();
@@ -117,26 +50,6 @@ public class SampleController {
 			PSpots.add(new PSpot(s.getId(),s.getAddBlue(),s.getFood(),s.getWc(),s.getBed(),s.getBath(), s.getFuel(),s.getRoadtrain(),s.getLongitude(),s.getLatitude()
 					,s.getName(),s.getLastUpdated(),s.getDeleted()));
 		}
-	}
-
-	public void loadTestSpots(){
-		//her modtages json og laves om til en arraylist. skal nok kaldes gennem connection klassen
-		//testdata:
-//		testSpots = new ArrayList<Spot>();
-//		PSpots.add(new PSpot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false));
-//		PSpots.add(new PSpot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false));
-//		PSpots.add(new PSpot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false));
-//		PSpots.add(new PSpot(4, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694, false));
-//		PSpots.add(new PSpot(5, false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694, false));
-//		PSpots.add(new PSpot(6, true, true, true, true, true, false, (float)21.012, (float)22.012, "Spot 6", 240694, false));
-		
-//		testSpots.add(new Spot(true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 6", 240694, false));
-//		testSpots.add(new Spot(true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false));
-//		testSpots.add(new Spot( true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false));
-//		testSpots.add(new Spot( true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false));
-//		testSpots.add(new Spot( true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694, false));
-//		testSpots.add(new Spot( false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694, false));
-		
 	}
 
 	public void createTableView(String token) throws IOException{
@@ -147,7 +60,7 @@ public class SampleController {
 		controller.setCurrentStage(stage);
 		controller.setToken(token);
 		controller.setObservableData(PSpots);
-		Scene scene = new Scene(myPane,1250,800);
+		Scene scene = new Scene(myPane,1250,700);
 		currentStage.close();
 		setCurrentStage(stage);
 		stage.setScene(scene);
