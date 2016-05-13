@@ -45,7 +45,7 @@ public class RestClient {
 		ArrayList<Spot> spots;
 
 		try {
-			System.out.println(resultString);
+//			System.out.println(resultString);
 			JSONArray jsonarray = new JSONArray(resultString);
 			spots = parseJSONArray(jsonarray);
 			return spots;
@@ -120,6 +120,7 @@ public class RestClient {
 			PutContainer pc = new PutContainer(spot,token);
 			input = gson.toJson(pc);
 			Client client = ClientBuilder.newClient();
+//			System.out.println(input);
 			Response res = client.target(hostname + "edit/spot").request(MediaType.APPLICATION_JSON).put(Entity.entity(input, MediaType.APPLICATION_JSON));
 			String resultString = res.readEntity(String.class);
 		}

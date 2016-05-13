@@ -326,7 +326,7 @@ public class TableController implements Initializable{
 			CheckBoxTableCell cell = new CheckBoxTableCell<>(index -> {
 				BooleanProperty active = new SimpleBooleanProperty();
 				active.addListener((obs, wasActive, isNowActive) -> {
-					System.out.println("ret "+ tableViewId.getItems().get(index).getId());
+//					System.out.println("ret "+ tableViewId.getItems().get(index).getId());
 					rettedeSpots(tableViewId.getItems().get(index).getId());
 				});
 				return active ;

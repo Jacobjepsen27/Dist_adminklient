@@ -6,15 +6,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="application.SampleController">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <center>
       <Pane prefHeight="439.0" prefWidth="598.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="login_btn" layoutX="262.0" layoutY="289.0" mnemonicParsing="false" onAction="#loginAdmin" text="Login" />
-            <TextField fx:id="pass_text" layoutX="208.0" layoutY="226.0" />
+            <TextField fx:id="pass_text" layoutX="208.0" layoutY="226.0" text="43polser" />
             <Label layoutX="132.0" layoutY="231.0" text="Password:" />
-            <TextField fx:id="username_text" layoutX="208.0" layoutY="179.0" />
+            <TextField fx:id="username_text" layoutX="208.0" layoutY="179.0" text="s144875" />
             <Label layoutX="121.0" layoutY="184.0" text="Brugernavn:" />
             <Label layoutX="136.0" layoutY="66.0" prefHeight="63.0" prefWidth="338.0" text="Administrator Login">
                <font>
