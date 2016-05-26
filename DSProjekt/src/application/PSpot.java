@@ -32,30 +32,9 @@ public class PSpot {
         this.deleted = new SimpleBooleanProperty(deleted);
 	}
 	
-//	public Spot(boolean addBlue, boolean food, boolean wc, boolean bed, boolean bath, boolean roadtrain, float longitude, float latitude, String name, long lastUpdated, boolean deleted){
-//        this.addBlue = new SimpleBooleanProperty(addBlue);
-//        this.food = new SimpleBooleanProperty(food);
-//        this.wc = new SimpleBooleanProperty(wc);
-//        this.bed = new SimpleBooleanProperty(bed);
-//        this.bath = new SimpleBooleanProperty(bath);
-//        this.roadtrain = new SimpleBooleanProperty(roadtrain);
-//        this.longitude = new SimpleFloatProperty(longitude);
-//        this.latitude = new SimpleFloatProperty(latitude);
-//        this.name = new SimpleStringProperty(name);
-//        this.lastUpdated = new SimpleLongProperty(lastUpdated);
-//        this.deleted = new SimpleBooleanProperty(deleted);
-//	}
-
-//	}
-//	
 	public int getId(){
 		return id.get();
 	}
-//	
-//	public boolean getAddBlue(){
-//		return addBlue.get();
-//	}
-	
 	public ObservableValue<Boolean> getAddBlue(){
 		return addBlue;
 	}
@@ -96,7 +75,6 @@ public class PSpot {
 		bath.set(b);
 	}
 	
-	//HUSK FUEL
 	public ObservableValue<Boolean> getFuel(){
 		return fuel;
 	}

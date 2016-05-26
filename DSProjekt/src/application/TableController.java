@@ -144,32 +144,12 @@ public class TableController implements Initializable{
 	private Stage currentStage;
 
 	public final ObservableList<PSpot> data =  FXCollections.observableArrayList();
-	//			new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694, false),
-	//			new Spot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694, false),
-	//			new Spot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694, false),
-	//			new Spot(4, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694, false),
-	//			new Spot(5, false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694, false)
-	//			);
-
-	//	    final ObservableList<Spot> data = FXCollections.observableArrayList(
-	//				new Spot(1, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 1", 240694),
-	//				new Spot(2, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 2", 240694),
-	//				new Spot(3, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 3", 240694),
-	//				new Spot(4, true, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 4", 240694),
-	//				new Spot(5, false, true, true, true, true, true, (float)21.012, (float)22.012, "Spot 5", 240694)
-	//			);
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 
 		tableViewId.setEditable(true);
-
-		//		tableViewId.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-		//		    if (newSelection != null) {
-		//		        System.out.println(tableViewId.getSelectionModel().getSelectedIndex());
-		//		    }
-		//		});
 
 		idCol.setPrefWidth(25);
 		idCol.setCellValueFactory(new PropertyValueFactory<PSpot,Integer>("id"));

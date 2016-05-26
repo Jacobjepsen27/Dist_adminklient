@@ -74,30 +74,9 @@ public class RestClient {
 	public ArrayList<PSpot> saveChangedSpots(ArrayList<PSpot> ps, String token){
 		ArrayList<Spot> list = new ArrayList<Spot>();
 		ArrayList<PSpot> list2 = new ArrayList<PSpot>();
-		//MÅ IKKE SLETTES; ER EN DEL AF PARSEARRAY
-		//		for(int i=0; i<ps.size(); i++){
-		//			list.add(new Spot(ps.get(i).getId(),ps.get(i).getAddBlue().getValue(),ps.get(i).getFood().getValue(),ps.get(i).getWc().getValue(),
-		//			ps.get(i).getBed().getValue(),ps.get(i).getBath().getValue(),ps.get(i).getRoadtrain().getValue(),ps.get(i).getLongitude(),
-		//			ps.get(i).getLatitude(),ps.get(i).getName(),ps.get(i).getLastUpdated(),ps.get(i).getDeleted().getValue()));			
-		//		}
 		list = ParseArray.PSpot2Spot(ps);
-
-		//		//Testkode til at se om Spotsne kan laves til JSON
-		//		JSONArray ja;
-		//		try {
-		//			ja = new JSONArray(Arrays.asList(list));
-		//			System.out.println(ja);
-		//		} catch (Exception e) {
-		//			// TODO Auto-generated catch block
-		//			e.printStackTrace();
-		//		}
 		saveChangedSpotsToServer(list, token);
 		list = hentJsonFraServer();
-		//		for(int i=0; i<list.size(); i++){
-		//			list2.add(new PSpot(list.get(i).getId(), list.get(i).getAddBlue(), list.get(i).getFood(), list.get(i).getWc(), list.get(i).getBed(),
-		//					list.get(i).getBath(), list.get(i).getRoadtrain(), list.get(i).getLongitude(), list.get(i).getLatitude(),
-		//					list.get(i).getName(), list.get(i).getLastUpdated(), list.get(i).getDeleted()));
-		//		}
 		list2 = ParseArray.Spot2PSpot(list);
 		return list2;
 	}
@@ -115,12 +94,9 @@ public class RestClient {
 		Spot tempSpot;
 		String input=null;
 		for (Spot spot : list) {
-			//			tempSpot = spot;
-			//			input = gson.toJson(tempSpot);
 			PutContainer pc = new PutContainer(spot,token);
 			input = gson.toJson(pc);
 			Client client = ClientBuilder.newClient();
-//			System.out.println(input);
 			Response res = client.target(hostname + "edit/spot").request(MediaType.APPLICATION_JSON).put(Entity.entity(input, MediaType.APPLICATION_JSON));
 			String resultString = res.readEntity(String.class);
 		}
